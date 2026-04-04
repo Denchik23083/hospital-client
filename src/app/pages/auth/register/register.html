@@ -1,0 +1,72 @@
+<div class="page">
+  <div class="card">
+    <div class="brand">
+      <div class="logo">A</div>
+      <h1>Создать аккаунт</h1>
+      <p>Заполни данные для регистрации</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+      <div class="field">
+        <label for="userName">Имя пользователя</label>
+        <input
+          id="userName"
+          type="text"
+          formControlName="userName"
+          placeholder="Введите username"
+        />
+        @if (userName.touched && userName.invalid) {
+          <small class="error">
+            @if (userName.errors?.['required']) { Имя пользователя обязательно }
+            @if (userName.errors?.['minlength']) { Минимум 3 символа }
+          </small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="Введите email"
+        />
+        @if (email.touched && email.invalid) {
+          <small class="error">
+            @if (email.errors?.['required']) { Email обязателен }
+            @if (email.errors?.['email']) { Некорректный email }
+          </small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="password">Пароль</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Введите пароль"
+        />
+        @if (password.touched && password.invalid) {
+          <small class="error">
+            @if (password.errors?.['required']) { Пароль обязателен }
+            @if (password.errors?.['minlength']) { Минимум 4 символа }
+          </small>
+        }
+      </div>
+
+      <button type="submit" [disabled]="isLoading()">
+        {{ isLoading() ? 'Регистрация...' : 'Зарегистрироваться' }}
+      </button>
+
+      <div class="link">
+        Уже есть аккаунт?
+        <a routerLink="/login">Войти</a>
+      </div>
+
+      @if (errorMessage()) {
+        <div class="error-box">{{ errorMessage() }}</div>
+      }
+    </form>
+  </div>
+</div>

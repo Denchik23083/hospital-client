@@ -1,0 +1,35 @@
+<div class="page">
+  <div class="card">
+    <div class="brand">
+      <div class="logo">A</div>
+      <h1>Вход</h1>
+      <p>Войдите в аккаунт</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="form">
+
+      <div class="field">
+        <label>Email</label>
+        <input type="email" formControlName="email" placeholder="Введите email" />
+      </div>
+
+      <div class="field">
+        <label>Пароль</label>
+        <input type="password" formControlName="password" placeholder="Введите пароль" />
+      </div>
+
+      <button type="submit" [disabled]="isLoading()">
+        {{ isLoading() ? 'Вход...' : 'Войти' }}
+      </button>
+
+      <div class="link">
+        Нет аккаунта?
+        <a routerLink="/register">Зарегистрироваться</a>
+      </div>
+      
+      @if (errorMessage()) {
+        <div class="error-box">{{ errorMessage() }}</div>
+      }
+    </form>
+  </div>
+</div>

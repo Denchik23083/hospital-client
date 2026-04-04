@@ -1,0 +1,33 @@
+<div class="page">
+  <div class="container">
+    <div class="header">
+        <h1>Пациент</h1>
+        <div class="actions">
+            <button class="back" (click)="back()">Назад</button>
+            <button class="logout" (click)="logout()">Выйти</button>
+        </div>
+    </div>
+
+    @if (isLoading()) {
+      <p class="info">Загрузка...</p>
+    }
+
+    @if (errorMessage()) {
+      <p class="error">{{ errorMessage() }}</p>
+    }
+
+    @if (!isLoading() && !errorMessage() && user()) {
+      <div class="card">
+        <h2>{{ user()!.userName }}</h2>
+        <p class="author">{{ user()!.email }}</p>
+        
+        <div class="card-actions">
+            @if (isGod()) {
+                <button class="edit" (click)="makeAdmin()">Повысить</button>
+            }
+            <button class="delete" (click)="deleteUser()">Удалить</button>
+          </div>
+      </div>
+    }
+  </div>
+</div>
