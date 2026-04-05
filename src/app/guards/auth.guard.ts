@@ -27,7 +27,7 @@ export const authGuard: CanActivateFn = (route, state) => {
       : requiredRoles.includes(roles);
 
   if (!hasAccess) {
-    router.navigate(['/directions']); // или на 403 страницу
+    router.navigate(['/specialties']); // или на 403 страницу
     return false;
   }
 

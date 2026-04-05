@@ -1,0 +1,32 @@
+<div class="page">
+  <div class="container">
+    <div class="header">
+        <h1>Выберите врача</h1>
+        <div class="actions">
+          <button class="back" (click)="back()">Назад</button>
+          <button class="logout" (click)="logout()">Выйти</button>
+        </div>
+    </div>
+
+    @if (isLoading()) {
+      <p class="info">Загрузка...</p>
+    }
+
+    @if (errorMessage()) {
+      <p class="error">{{ errorMessage() }}</p>
+    }
+
+    <div class="grid">
+      @for (doctor of doctors(); track doctor.id) {
+        <div class="card" (click)="details(doctor.id)">
+          <h3>{{ doctor.firstName }} {{ doctor.lastName }}</h3>
+          <p class="author">Опыт работы лет: {{ doctor.experienceYears }}</p>
+
+          <div class="meta">
+            <span>{{ doctor.genderType.toString() }} </span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

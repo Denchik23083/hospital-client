@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AllDirections } from './all-directions';
+import { DetailSpecialty } from './detail-specialty';
 
-describe('AllDirections', () => {
-  let component: AllDirections;
-  let fixture: ComponentFixture<AllDirections>;
+describe('DetailSpecialty', () => {
+  let component: DetailSpecialty;
+  let fixture: ComponentFixture<DetailSpecialty>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AllDirections],
+      imports: [DetailSpecialty],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AllDirections);
+    fixture = TestBed.createComponent(DetailSpecialty);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

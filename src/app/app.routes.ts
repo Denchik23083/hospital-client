@@ -2,12 +2,19 @@ import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-    {
-    path: 'directions',
+  {
+    path: 'specialties',
     canActivate: [authGuard],
-    data: { roles: ['Admin', 'God', 'User'] },
+    data: { roles: ['Admin', 'God', 'Patient'] },
     loadComponent: () =>
-      import('./pages/application/directions/all-directions/all-directions').then(m => m.AllDirections)
+      import('./pages/hospital/specialty/all-specialties/all-specialties').then(m => m.AllSpecialties)
+  },
+  {
+    path: 'specialties/:specialtyId/doctors',
+    canActivate: [authGuard],
+    data: { roles: ['Admin', 'God', 'Patient'] },
+    loadComponent: () =>
+      import('./pages/hospital/specialty/detail-specialty/detail-specialty').then(m => m.DetailSpecialty)
   },
   {
     path: 'users',
@@ -49,7 +56,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'directions',
+    redirectTo: 'specialties',
     pathMatch: 'full'
   }
 ];

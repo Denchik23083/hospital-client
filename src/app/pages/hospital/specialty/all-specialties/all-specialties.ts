@@ -1,44 +1,45 @@
 import { Component, inject, signal } from '@angular/core';
-import { AdminService } from '../../../../services/admin.service';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../../../../services/token-storage.service';
-import { UserResponce } from '../../../../models/responces/user-responce.model';
+import { SpecialtyService } from '../../../../services/specialty.service';
+import { SpecialtyResponce } from '../../../../models/responces/specialty-responce.model';
 
 @Component({
-  selector: 'app-all-users',
+  selector: 'app-all-specialties',
   imports: [],
-  templateUrl: './all-users.html',
-  styleUrl: './all-users.css',
+  templateUrl: './all-specialties.html',
+  styleUrl: './all-specialties.css',
 })
-export class AllUsers {
-  private readonly adminService = inject(AdminService);
+
+export class AllSpecialties {
+  private readonly specialtyService = inject(SpecialtyService);
   private readonly router = inject(Router);
   private readonly tokenStorage = inject(TokenStorageService);
 
-  users = signal<UserResponce[]>([]);
+  specialties = signal<SpecialtyResponce[]>([]);
   isLoading = signal(true);
   errorMessage = signal('');
-  isGod = signal(false);
+  //isGod = signal(false);
 
   ngOnInit() {
-    this.checkRole();
+    //this.checkRole();
     this.load();
   }
 
   load() {
-    this.adminService.getAllUsers().subscribe({
+    this.specialtyService.getAllSpecialties().subscribe({
       next: (data) => {
-        this.users.set(data);
+        this.specialties.set(data);
         this.isLoading.set(false);
       },
       error: () => {
-        this.errorMessage.set('Ошибка загрузки пациентов');
+        this.errorMessage.set('Ошибка загрузки направлений');
         this.isLoading.set(false);
       }
     });
   }
 
-  checkRole() {
+  /*checkRole() {
     const token = this.tokenStorage.getAccessToken();
 
     if (!token) return;
@@ -50,14 +51,16 @@ export class AllUsers {
     if (role === 'God') {
       this.isGod.set(true);
     }
-  }
+  }*/
 
   details(id: number) {
-    this.router.navigate(['/users', id]);
+    console.log(id)
+    this.router.navigate(['/specialties/', id, 'doctors']);
   }
 
   back() {
-    this.router.navigate(['/specialties']);
+    //TODO: Change laterto main
+    this.router.navigate(['/login']);
   }
 
   logout() {
@@ -65,3 +68,4 @@ export class AllUsers {
     this.router.navigate(['/login']);
   }
 }
+
