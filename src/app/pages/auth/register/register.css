@@ -74,7 +74,8 @@ label {
   color: #e2e8f0;
 }
 
-input {
+input,
+select {
   height: 48px;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 14px;
@@ -86,11 +87,16 @@ input {
   transition: 0.2s;
 }
 
+select {
+  appearance: none;
+}
+
 input::placeholder {
   color: #94a3b8;
 }
 
-input:focus {
+input:focus,
+select:focus {
   border-color: #818cf8;
   box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.18);
 }
@@ -117,18 +123,14 @@ button:disabled {
   cursor: not-allowed;
 }
 
+option {
+  color: black;
+  background: white;
+}
+
 .error {
   color: #fca5a5;
   font-size: 13px;
-}
-
-.success {
-  padding: 12px 14px;
-  border-radius: 12px;
-  background: rgba(34, 197, 94, 0.15);
-  color: #bbf7d0;
-  border: 1px solid rgba(34, 197, 94, 0.25);
-  text-align: center;
 }
 
 .error-box {

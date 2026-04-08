@@ -7,22 +7,7 @@
     </div>
 
     <form [formGroup]="form" (ngSubmit)="submit()" class="form">
-      <div class="field">
-        <label for="userName">Имя пользователя</label>
-        <input
-          id="userName"
-          type="text"
-          formControlName="userName"
-          placeholder="Введите username"
-        />
-        @if (userName.touched && userName.invalid) {
-          <small class="error">
-            @if (userName.errors?.['required']) { Имя пользователя обязательно }
-            @if (userName.errors?.['minlength']) { Минимум 3 символа }
-          </small>
-        }
-      </div>
-
+      
       <div class="field">
         <label for="email">Email</label>
         <input
@@ -51,6 +36,79 @@
           <small class="error">
             @if (password.errors?.['required']) { Пароль обязателен }
             @if (password.errors?.['minlength']) { Минимум 4 символа }
+          </small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="firstName">Имя</label>
+        <input
+          id="firstName"
+          type="text"
+          formControlName="firstName"
+          placeholder="Введите имя"
+        />
+        @if (firstName.touched && firstName.invalid) {
+          <small class="error">
+            @if (firstName.errors?.['required']) { Имя обязательно }
+          </small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="lastName">Фамилия</label>
+        <input
+          id="lastName"
+          type="text"
+          formControlName="lastName"
+          placeholder="Введите фамилию"
+        />
+        @if (lastName.touched && lastName.invalid) {
+          <small class="error">
+            @if (lastName.errors?.['required']) { Фамилия обязательна }
+          </small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="birthDate">Дата рождения</label>
+        <input
+          id="birthDate"
+          type="date"
+          formControlName="birthDate"
+        />
+        @if (birthDate.touched && birthDate.invalid) {
+          <small class="error">
+            @if (birthDate.errors?.['required']) { Дата рождения обязательна }
+          </small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="genderType">Пол</label>
+        <select id="genderType" formControlName="genderType">
+          <option [ngValue]="1">Мужской</option>
+          <option [ngValue]="2">Женский</option>
+        </select>
+        @if (genderType.touched && genderType.invalid) {
+          <small class="error">
+            @if (genderType.errors?.['required']) { Пол обязателен }
+          </small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="phone">Телефон</label>
+        <input
+          id="phone"
+          type="text"
+          formControlName="phone"
+          placeholder="Введите телефон"
+        />
+        @if (phone.touched && phone.invalid) {
+          <small class="error">
+            @if (phone.errors?.['required']) { Телефон обязателен }
+            @if (phone.errors?.['minlength']) { Слишком короткий телефон }
           </small>
         }
       </div>

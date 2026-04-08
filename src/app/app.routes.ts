@@ -17,6 +17,13 @@ export const routes: Routes = [
       import('./pages/hospital/specialty/detail-specialty/detail-specialty').then(m => m.DetailSpecialty)
   },
   {
+    path: 'specialties/:specialtyId/doctors:doctorsId',
+    canActivate: [authGuard],
+    data: { roles: ['Admin', 'God', 'Patient'] },
+    loadComponent: () =>
+      import('./pages/hospital/specialty/detail-specialty/detail-specialty').then(m => m.DetailSpecialty)
+  },
+  {
     path: 'users',
     canActivate: [authGuard],
     data: { roles: ['Admin', 'God'] },

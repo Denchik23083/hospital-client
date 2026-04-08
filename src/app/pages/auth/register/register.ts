@@ -20,9 +20,13 @@ export class Register {
   errorMessage = signal('');
 
   form = this.fb.nonNullable.group({
-    userName: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(4)]],
+    firstName: ['', [Validators.required]],
+    lastName: ['', [Validators.required]],
+    birthDate: ['', [Validators.required]],
+    genderType: [1, [Validators.required]],
+    phone: ['', [Validators.required, Validators.minLength(6)]],
   });
 
   submit(): void {
@@ -38,9 +42,13 @@ export class Register {
       next: () => {
         this.isLoading.set(false);
         this.form.reset({
-          userName: '',
           email: '',
           password: '',
+          firstName: '',
+          lastName: '',
+          birthDate: '',
+          genderType: 1,
+          phone: '',
         });
         this.router.navigate(['/login']);
       },
@@ -51,15 +59,31 @@ export class Register {
     });
   }
 
-  get userName() {
-    return this.form.controls.userName;
-  }
-
   get email() {
     return this.form.controls.email;
   }
 
   get password() {
     return this.form.controls.password;
+  }
+
+  get firstName() {
+    return this.form.controls.firstName;
+  }
+
+  get lastName() {
+    return this.form.controls.lastName;
+  }
+
+  get birthDate() {
+    return this.form.controls.birthDate;
+  }
+
+  get genderType() {
+    return this.form.controls.genderType;
+  }
+
+  get phone() {
+    return this.form.controls.phone;
   }
 }
