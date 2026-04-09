@@ -17,11 +17,11 @@ export const routes: Routes = [
       import('./pages/hospital/specialty/detail-specialty/detail-specialty').then(m => m.DetailSpecialty)
   },
   {
-    path: 'specialties/:specialtyId/doctors:doctorsId',
+    path: 'specialties/:specialtyId/doctors/:doctorId',
     canActivate: [authGuard],
     data: { roles: ['Admin', 'God', 'Patient'] },
     loadComponent: () =>
-      import('./pages/hospital/specialty/detail-specialty/detail-specialty').then(m => m.DetailSpecialty)
+      import('./pages/hospital/booking/create-booking/create-booking').then(m => m.CreateBooking)
   },
   {
     path: 'users',

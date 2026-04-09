@@ -54,8 +54,7 @@ export class AllSpecialties {
   }*/
 
   details(id: number) {
-    console.log(id)
-    this.router.navigate(['/specialties/', id, 'doctors']);
+    this.router.navigate(['/specialties', id, 'doctors']);
   }
 
   back() {

@@ -1,0 +1,40 @@
+<div class="page">
+  <div class="container">
+    <div class="header">
+        <h1>
+            @if (!selectedDate()) { Выберите дату } 
+            @else { Выберите время }
+        </h1>
+        <div class="actions">
+            @if (selectedDate()) { <button class="back" (click)="showDates()">К датам</button> } 
+            @else { <button class="back" (click)="back()">Назад</button> }
+          <button class="logout" (click)="logout()">Выйти</button>
+        </div>
+    </div>
+
+    @if (isLoading()) {
+      <p class="info">Загрузка...</p>
+    }
+
+    @if (errorMessage()) {
+      <p class="error">{{ errorMessage() }}</p>
+    }
+
+    <div class="grid">
+        @if (!selectedDate()) {
+            @for (date of dates(); track date) {
+            <div class="card" (click)="getTime(date)">
+                <h3>{{ (date | date:'d MMMM, EEEE' : '' : 'ru-RU') | titlecase }}</h3>
+            </div>
+            }
+        } 
+        @else {
+            @for (time of times(); track time.id) {
+            <div class="card" (click)="createBooking(time.id)">
+                <h3>{{ time.startTime }} - {{ time.endTime }}</h3>
+            </div>
+            }
+        }
+    </div>
+  </div>
+</div>

@@ -65,7 +65,7 @@ export class DetailSpecialty {
   details(doctorsId: number) {
     const specialtyId = Number(this.route.snapshot.paramMap.get('specialtyId'));
 
-    this.router.navigate(['/specialties/', specialtyId, 'doctors', doctorsId]);
+    this.router.navigate(['/specialties', specialtyId, 'doctors', doctorsId]);
   }
 
   back() {
