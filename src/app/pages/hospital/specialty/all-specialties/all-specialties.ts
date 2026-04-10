@@ -58,8 +58,7 @@ export class AllSpecialties {
   }
 
   back() {
-    //TODO: Change laterto main
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
   logout() {

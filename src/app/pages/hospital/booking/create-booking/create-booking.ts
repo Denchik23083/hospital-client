@@ -106,10 +106,12 @@ export class CreateBooking {
   }
 
   createBooking(slotId: number){
-    const token = this.tokenStorage.getAccessToken();
-    const payload = JSON.parse(atob(token!.split('.')[1]));
-    const userId = payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
-    
+    const userId = this.tokenStorage.getUserIdFromToken();
+    if (!userId) {
+      this.errorMessage.set('Некорректный id пользователя');
+      return;
+    }
+
     this.bookingService.createBooking(slotId, userId).subscribe({
       next: () => {
         this.isLoading.set(false);

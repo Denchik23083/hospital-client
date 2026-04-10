@@ -41,7 +41,7 @@ export class AllAdmins {
   }
 
   back() {
-    this.router.navigate(['/specialties']);
+    this.router.navigate(['/']);
   }
 
   logout() {

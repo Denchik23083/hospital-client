@@ -1,0 +1,94 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
+  padding: 40px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin-bottom: 24px;
+}
+
+.info {
+  color: #cbd5e1;
+}
+
+.error {
+  color: #f87171;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.logout {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: #ef4444;
+  color: white;
+  font-weight: 600;
+}
+
+.logout:hover {
+  opacity: 0.9;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+.add {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: #22c55e;
+  color: white;
+  font-weight: 600;
+}
+
+.add, .users, .admins {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+}
+
+.add {
+  background: #22c55e;
+}
+
+.users {
+  background: #3b82f6;
+}
+
+.admins {
+  background: #7C3AED;
+}
+
+.add:hover, .users:hover, .admins:hover {
+  opacity: 0.9;
+}
+
+.subtitle {
+  color: #cbd5e1;
+  margin-bottom: 28px;
+  font-size: 16px;
+}

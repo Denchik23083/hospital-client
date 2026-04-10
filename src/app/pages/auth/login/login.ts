@@ -38,7 +38,7 @@ export class Login {
     this.authService.login(this.form.getRawValue()).subscribe({
       next: (response) => {
         this.tokenStorage.setTokens(response.accessToken, response.refreshToken);
-        this.router.navigate(['/specialties']);
+        this.router.navigate(['/']);
       },
       error: (err) => {
         this.isLoading.set(false);

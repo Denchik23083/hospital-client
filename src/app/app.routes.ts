@@ -63,7 +63,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'specialties',
-    pathMatch: 'full'
+    loadComponent: () =>
+      import('./pages/main/main').then(m => m.Main),
   }
 ];

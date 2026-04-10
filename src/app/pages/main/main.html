@@ -1,0 +1,28 @@
+<div class="page">
+  <div class="container">
+    <div class="header">
+        <h1>Добро пожаловать</h1>
+        <div class="actions">
+            @if (isLogin()) {
+                @if (isGod()) {
+                    <button class="admins" (click)="admins()">Администраторы</button>
+                }
+                @if (isAdmin() || isGod()) {
+                    <button class="users" (click)="users()">Пользователи</button>
+                }
+                @if (isPatient()) {
+                    <button class="add" (click)="specialties()">Записаться к врачу</button>
+                    <button class="users" (click)="specialties()">Посмотреть все записи</button>
+                }
+                <button class="logout" (click)="logout()">Выйти</button>
+            }
+            @else {
+                <button class="add" (click)="login()">Login</button>
+                <button class="users" (click)="register()">Register</button>
+            }
+        </div>
+    </div>
+
+    <p class="subtitle">Запишитесь к врачу быстро и удобно</p>
+  </div>
+</div>
