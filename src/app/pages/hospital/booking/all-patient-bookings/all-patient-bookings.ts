@@ -57,6 +57,25 @@ export class AllPatientBookings {
     this.router.navigate(['/']);
   }
 
+  cancel(bookingId: number) {
+    if (!confirm('Вы точно хотите отменить запись?')) return;
+
+  this.bookingService.cancelBooking(bookingId).subscribe({
+    next: () => {
+      this.bookings.update(list =>
+        list.map(b =>
+          b.id === bookingId
+            ? { ...b, bookingStatus: 'Cancelled' }
+            : b
+        )
+      );
+    },
+    error: () => {
+      alert('Ошибка при отмене записи');
+    }
+  });
+  }
+
   logout() {
     this.tokenStorage.clearTokens();
     this.router.navigate(['/login']);

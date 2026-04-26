@@ -17,4 +17,8 @@ export class BookingService {
   createBooking(slotId: number): Observable<unknown> {
     return this.http.post(`${this.apiUrl}/${slotId}`, null);
   }
+
+  cancelBooking(bookingId: number) {
+    return this.http.put(`${this.apiUrl}/${bookingId}/cancel`, null);
+  }
 }

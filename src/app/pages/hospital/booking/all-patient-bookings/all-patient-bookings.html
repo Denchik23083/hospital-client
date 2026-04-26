@@ -65,6 +65,14 @@
               {{ booking.doctorSlotWithDoctorResponse.doctorResponse.genderType }}
             </strong>
           </div>
+
+          <div class="card-actions">
+            @if (booking.bookingStatus === 'Active') {
+              <button class="cancel" (click)="cancel(booking.id)">
+                Отменить запись
+              </button>
+            }
+          </div>
         </div>
       }
     </div>

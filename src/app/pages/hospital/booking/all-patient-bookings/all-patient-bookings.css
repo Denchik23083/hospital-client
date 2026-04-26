@@ -142,3 +142,26 @@ h1 {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+.card-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cancel {
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: #ef4444;
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+  transition: 0.2s;
+}
+
+.cancel:hover {
+  opacity: 0.9;
+}
