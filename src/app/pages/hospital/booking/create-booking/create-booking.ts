@@ -3,7 +3,7 @@ import { BookingService } from '../../../../services/booking.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from '../../../../services/token-storage.service';
 import { CommonModule } from '@angular/common';
-import { DoctorSlotResponce } from '../../../../models/responces/doctor-slot-responce.model';
+import { DoctorSlotResponse } from '../../../../models/responses/doctor-slot-response.model';
 import { DoctorSlotService } from '../../../../services/doctor-slot.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class CreateBooking {
   private readonly tokenStorage = inject(TokenStorageService);
 
   dates = signal<string[]>([]);
-  times = signal<DoctorSlotResponce[]>([]);
+  times = signal<DoctorSlotResponse[]>([]);
   isLoading = signal(true);
   errorMessage = signal('');
   selectedDate = signal<string | null>(null);

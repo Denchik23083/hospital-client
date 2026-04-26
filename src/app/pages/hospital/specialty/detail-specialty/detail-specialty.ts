@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { SpecialtyService } from '../../../../services/specialty.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from '../../../../services/token-storage.service';
-import { DoctorResponce } from '../../../../models/responces/doctor-responce.model';
+import { DoctorResponse } from '../../../../models/responses/doctor-response.model';
 
 @Component({
   selector: 'app-detail-specialty',
@@ -17,7 +17,7 @@ export class DetailSpecialty {
 
   private readonly tokenStorage = inject(TokenStorageService);
 
-  doctors = signal<DoctorResponce[]>([]);
+  doctors = signal<DoctorResponse[]>([]);
   isLoading = signal(true);
   errorMessage = signal('');
   //isGod = signal(false);

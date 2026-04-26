@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserResponce } from '../models/responces/user-responce.model';
+import { UserResponse } from '../models/responses/user-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,12 +10,12 @@ export class AdminService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = '/api/admin-panel/admin';
 
-  getAllUsers(): Observable<UserResponce[]> {
-    return this.http.get<UserResponce[]>(this.apiUrl);
+  getAllUsers(): Observable<UserResponse[]> {
+    return this.http.get<UserResponse[]>(this.apiUrl);
   }
 
-  getUser(id: number): Observable<UserResponce> {
-    return this.http.get<UserResponce>(`${this.apiUrl}/${id}`);
+  getUser(id: number): Observable<UserResponse> {
+    return this.http.get<UserResponse>(`${this.apiUrl}/${id}`);
   }
 
   deleteUser(id: number): Observable<unknown> {

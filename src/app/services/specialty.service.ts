@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SpecialtyResponce } from '../models/responces/specialty-responce.model';
-import { DoctorResponce } from '../models/responces/doctor-responce.model';
+import { DoctorResponse } from '../models/responses/doctor-response.model';
+import { SpecialtyResponse } from '../models/responses/specialty-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +11,11 @@ export class SpecialtyService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = '/api/hospital/specialty';
 
-  getAllSpecialties(): Observable<SpecialtyResponce[]> {
-    return this.http.get<SpecialtyResponce[]>(this.apiUrl);
+  getAllSpecialties(): Observable<SpecialtyResponse[]> {
+    return this.http.get<SpecialtyResponse[]>(this.apiUrl);
   }
 
-  getAllDoctorsBySpecialty(specialtyId: number): Observable<DoctorResponce[]> {
-    return this.http.get<DoctorResponce[]>(`${this.apiUrl}/${specialtyId}/doctors`);
+  getAllDoctorsBySpecialty(specialtyId: number): Observable<DoctorResponse[]> {
+    return this.http.get<DoctorResponse[]>(`${this.apiUrl}/${specialtyId}/doctors`);
   }
 }

@@ -1,4 +1,4 @@
-export interface DoctorSlotResponce
+export interface DoctorSlotResponse
 {
     id: number,
     doctorId: number,

@@ -2,8 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { RegisterRequest } from '../models/requests/register-request.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { TokenResponse } from '../models/responces/token-responce.model';
 import { LoginRequest } from '../models/requests/login-request.model';
+import { TokenResponse } from '../models/responses/token-response.model';
 
 @Injectable({
   providedIn: 'root',

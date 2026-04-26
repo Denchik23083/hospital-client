@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { AdminService } from '../../../../services/admin.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from '../../../../services/token-storage.service';
-import { UserResponce } from '../../../../models/responces/user-responce.model';
+import { UserResponse } from '../../../../models/responses/user-response.model';
 import { GodService } from '../../../../services/god.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class DetailUser {
   private readonly route = inject(ActivatedRoute);
   private readonly tokenStorage = inject(TokenStorageService);
 
-  user = signal<UserResponce | null>(null);
+  user = signal<UserResponse | null>(null);
   isLoading = signal(true);
   errorMessage = signal('');
   isGod = signal(false);

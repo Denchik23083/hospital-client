@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { AdminService } from '../../../../services/admin.service';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../../../../services/token-storage.service';
-import { UserResponce } from '../../../../models/responces/user-responce.model';
+import { UserResponse } from '../../../../models/responses/user-response.model';
 
 @Component({
   selector: 'app-all-users',
@@ -15,7 +15,7 @@ export class AllUsers {
   private readonly router = inject(Router);
   private readonly tokenStorage = inject(TokenStorageService);
 
-  users = signal<UserResponce[]>([]);
+  users = signal<UserResponse[]>([]);
   isLoading = signal(true);
   errorMessage = signal('');
   isGod = signal(false);

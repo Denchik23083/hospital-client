@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { BookingService } from '../../../../services/booking.service';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../../../../services/token-storage.service';
-import { BookingResponce } from '../../../../models/responces/booking-responce.model';
+import { BookingResponse } from '../../../../models/responses/booking-response.model';
 
 @Component({
   selector: 'app-all-patient-bookings',
@@ -15,7 +15,7 @@ export class AllPatientBookings {
   private readonly router = inject(Router);
   private readonly tokenStorage = inject(TokenStorageService);
 
-  bookings = signal<BookingResponce[]>([]);
+  bookings = signal<BookingResponse[]>([]);
   isLoading = signal(true);
   errorMessage = signal('');
   //isGod = signal(false);

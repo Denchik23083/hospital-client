@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { GodService } from '../../../../services/god.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from '../../../../services/token-storage.service';
-import { UserResponce } from '../../../../models/responces/user-responce.model';
+import { UserResponse } from '../../../../models/responses/user-response.model';
 
 @Component({
   selector: 'app-detail-admin',
@@ -16,7 +16,7 @@ export class DetailAdmin {
   private readonly route = inject(ActivatedRoute);
   private readonly tokenStorage = inject(TokenStorageService);
 
-  admin = signal<UserResponce | null>(null);
+  admin = signal<UserResponse | null>(null);
   isLoading = signal(true);
   errorMessage = signal('');
 

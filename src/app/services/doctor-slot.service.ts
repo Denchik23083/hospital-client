@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DoctorSlotResponce } from '../models/responces/doctor-slot-responce.model';
+import { DoctorSlotResponse } from '../models/responses/doctor-slot-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class DoctorSlotService {
     return this.http.get<string[]>(`${this.apiUrl}/${doctorId}/available-dates`);
   }
 
-  getAllDoctorSlotsTimeByDate(doctorId: number, date: string): Observable<DoctorSlotResponce[]> {
-    return this.http.get<DoctorSlotResponce[]>(`${this.apiUrl}/${doctorId}/available-times?date=${date}`);
+  getAllDoctorSlotsTimeByDate(doctorId: number, date: string): Observable<DoctorSlotResponse[]> {
+    return this.http.get<DoctorSlotResponse[]>(`${this.apiUrl}/${doctorId}/available-times?date=${date}`);
   }
 }
