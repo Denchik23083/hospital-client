@@ -13,6 +13,9 @@
                 @if (isAdmin() || isGod() || isPatient()) {
                     <button class="add" (click)="specialties()">Записаться к врачу</button>
                 }
+                @if (isDoctor()) {
+                    <button class="add" (click)="mySlots()">Мои слоты</button>
+                }
                 @if (isPatient()) {
                     <button class="users" (click)="myBookings()">Мои записи</button>
                 }

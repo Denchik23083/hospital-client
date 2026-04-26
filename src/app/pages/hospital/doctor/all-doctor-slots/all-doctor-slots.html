@@ -1,0 +1,88 @@
+<div class="page">
+  <div class="container">
+    <div class="header">
+        <h1>
+            @if (!selectedDate()) { Выберите дату } 
+            @else { Ваши слоты }
+        </h1>
+        <div class="actions">
+            @if (selectedDate()) { <button class="back" (click)="showDates()">K датам</button> } 
+            @else { <button class="back" (click)="back()">Назад</button> }
+          <button class="logout" (click)="logout()">Выйти</button>
+        </div>
+    </div>
+
+    @if (isLoading()) {
+      <p class="info">Загрузка...</p>
+    }
+
+    @if (errorMessage()) {
+      <p class="error">{{ errorMessage() }}</p>
+    }
+
+    <div class="grid">
+      @if (!selectedDate()) {
+        @for (date of dates(); track date) {
+            <div class="card" (click)="getTime(date)">
+                <h3>{{ (date | date:'d MMMM, EEEE' : '' : 'ru-RU') | titlecase }}</h3>
+            </div>
+        }
+      } 
+      @else {
+        @for (slot of times(); track slot.id) {
+        <div class="card2">
+            <div class="card-header">
+            <h3>{{ slot.startTime }} - {{ slot.endTime }}</h3>
+
+            @if (slot.lastBooking === null) {
+                <span class="status free">Свободно</span>
+            } @else {
+                <span
+                class="status"
+                [class.active]="slot.lastBooking.bookingStatus === 'Active'"
+                [class.cancelled]="slot.lastBooking.bookingStatus === 'Cancelled'"
+                [class.completed]="slot.lastBooking.bookingStatus === 'Completed'"
+                >
+                {{ slot.lastBooking.bookingStatus }}
+                </span>
+            }
+            </div>
+
+            <p class="author">Дата: {{ slot.date }}</p>
+
+            @if (slot.lastBooking.patientResponse) {
+            <div class="patient">
+                <h4>Пациент</h4>
+
+                <div class="meta">
+                <span>Имя:</span>
+                <strong>
+                    {{ slot.lastBooking!.patientResponse!.firstName }}
+                    {{ slot.lastBooking!.patientResponse!.lastName }}
+                </strong>
+                </div>
+
+                <div class="meta">
+                <span>Дата рождения:</span>
+                <strong>{{ slot.lastBooking!.patientResponse!.birthDate }}</strong>
+                </div>
+
+                <div class="meta">
+                <span>Пол:</span>
+                <strong>{{ slot.lastBooking!.patientResponse!.genderType }}</strong>
+                </div>
+
+                <div class="meta">
+                <span>Телефон:</span>
+                <strong>{{ slot.lastBooking!.patientResponse!.phone }}</strong>
+                </div>
+            </div>
+            } @else {
+            <p class="empty">Записи на это время нет</p>
+            }
+        </div>
+        }
+      }
+    </div>
+  </div>
+</div>

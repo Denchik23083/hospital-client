@@ -80,6 +80,10 @@ export class Main {
     this.router.navigate(['/mybookings']);
   }
 
+  mySlots() {
+    this.router.navigate(['/myslots']);
+  }
+
   login() {
     this.router.navigate(['/login']);
   }

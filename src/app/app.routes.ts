@@ -31,6 +31,13 @@ export const routes: Routes = [
       import('./pages/hospital/booking/all-patient-bookings/all-patient-bookings').then(m => m.AllPatientBookings)
   },
   {
+    path: 'myslots',
+    canActivate: [authGuard],
+    data: { roles: ['Doctor'] },
+    loadComponent: () =>
+      import('./pages/hospital/doctor/all-doctor-slots/all-doctor-slots').then(m => m.AllDoctorSlots)
+  },
+  {
     path: 'users',
     canActivate: [authGuard],
     data: { roles: ['Admin', 'God'] },

@@ -17,10 +17,6 @@
       <p class="error">{{ errorMessage() }}</p>
     }
 
-    @if (!isLoading() && bookings().length === 0) {
-      <p class="empty">У вас пока нет записей</p>
-    }
-
     <div class="grid">
       @for (booking of bookings(); track booking.id) {
         <div class="card">
