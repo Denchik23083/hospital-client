@@ -25,10 +25,10 @@ export class CreateBooking {
   isLoading = signal(true);
   errorMessage = signal('');
   selectedDate = signal<string | null>(null);
-  //isGod = signal(false);
+  isPatient = signal(false);
 
   ngOnInit() {
-    //this.checkRole();
+    this.checkRole();
     this.load();
   }
 
@@ -61,7 +61,7 @@ export class CreateBooking {
     });
   }
 
-  /*checkRole() {
+  checkRole() {
     const token = this.tokenStorage.getAccessToken();
 
     if (!token) return;
@@ -70,10 +70,10 @@ export class CreateBooking {
 
     const role = payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
-    if (role === 'God') {
-      this.isGod.set(true);
+    if (role === 'Patient') {
+      this.isPatient.set(true);
     }
-  }*/
+  }
 
   getTime(date: string) {
     const doctorId = Number(this.route.snapshot.paramMap.get('doctorId'));
@@ -106,21 +106,15 @@ export class CreateBooking {
   }
 
   createBooking(slotId: number){
-    const userId = this.tokenStorage.getUserIdFromToken();
-    if (!userId) {
-      this.errorMessage.set('Некорректный id пользователя');
-      return;
-    }
-
-    this.bookingService.createBooking(slotId, userId).subscribe({
+    this.bookingService.createBooking(slotId).subscribe({
       next: () => {
-        this.isLoading.set(false);
-        this.router.navigate(['/specialties']);
+        alert('Вы успешно записались');
+
+        this.router.navigate(['/']);
       },
       error: () => {
-        this.isLoading.set(false);
-        this.errorMessage.set('Ошибка записи');
-      },
+        alert('Ошибка при записи');
+      }
     });
   }
 

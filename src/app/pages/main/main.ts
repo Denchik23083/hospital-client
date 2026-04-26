@@ -76,6 +76,10 @@ export class Main {
     this.router.navigate(['/specialties']);
   }
 
+  myBookings() {
+    this.router.navigate(['/mybookings']);
+  }
+
   login() {
     this.router.navigate(['/login']);
   }

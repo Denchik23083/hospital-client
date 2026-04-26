@@ -10,9 +10,11 @@
                 @if (isAdmin() || isGod()) {
                     <button class="users" (click)="users()">Пользователи</button>
                 }
-                @if (isPatient()) {
+                @if (isAdmin() || isGod() || isPatient()) {
                     <button class="add" (click)="specialties()">Записаться к врачу</button>
-                    <button class="users" (click)="specialties()">Посмотреть все записи</button>
+                }
+                @if (isPatient()) {
+                    <button class="users" (click)="myBookings()">Мои записи</button>
                 }
                 <button class="logout" (click)="logout()">Выйти</button>
             }

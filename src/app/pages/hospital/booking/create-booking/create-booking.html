@@ -21,20 +21,27 @@
     }
 
     <div class="grid">
-        @if (!selectedDate()) {
-            @for (date of dates(); track date) {
-            <div class="card" (click)="getTime(date)">
-                <h3>{{ (date | date:'d MMMM, EEEE' : '' : 'ru-RU') | titlecase }}</h3>
-            </div>
-            }
-        } 
-        @else {
-            @for (time of times(); track time.id) {
-            <div class="card" (click)="createBooking(time.id)">
-                <h3>{{ time.startTime }} - {{ time.endTime }}</h3>
-            </div>
-            }
+      @if (!selectedDate()) {
+        @for (date of dates(); track date) {
+        <div class="card" (click)="getTime(date)">
+            <h3>{{ (date | date:'d MMMM, EEEE' : '' : 'ru-RU') | titlecase }}</h3>
+        </div>
         }
+      } 
+      @else {
+        @for (time of times(); track time.id) {
+          @if (isPatient()) {
+            <div class="card" (click)="createBooking(time.id)">
+              <h3>{{ time.startTime }} - {{ time.endTime }}</h3>
+            </div>
+          }
+          @else {
+            <div class="card">
+              <h3>{{ time.startTime }} - {{ time.endTime }}</h3>
+            </div>
+          }
+        }
+      }
     </div>
   </div>
 </div>
