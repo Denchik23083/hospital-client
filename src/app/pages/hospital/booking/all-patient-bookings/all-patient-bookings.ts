@@ -28,7 +28,6 @@ export class AllPatientBookings {
   load() {
     this.bookingService.getAllBookings().subscribe({
       next: (data) => {
-        console.log(data)
         this.bookings.set(data);
         this.isLoading.set(false);
       },
@@ -60,20 +59,20 @@ export class AllPatientBookings {
   cancel(bookingId: number) {
     if (!confirm('Вы точно хотите отменить запись?')) return;
 
-  this.bookingService.cancelBooking(bookingId).subscribe({
-    next: () => {
-      this.bookings.update(list =>
-        list.map(b =>
-          b.id === bookingId
-            ? { ...b, bookingStatus: 'Cancelled' }
-            : b
-        )
-      );
-    },
-    error: () => {
-      alert('Ошибка при отмене записи');
-    }
-  });
+    this.bookingService.cancelBooking(bookingId).subscribe({
+      next: () => {
+        this.bookings.update(list =>
+          list.map(b =>
+            b.id === bookingId
+              ? { ...b, bookingStatus: 'Cancelled' }
+              : b
+          )
+        );
+      },
+      error: () => {
+        alert('Ошибка при отмене записи');
+      }
+    });
   }
 
   logout() {

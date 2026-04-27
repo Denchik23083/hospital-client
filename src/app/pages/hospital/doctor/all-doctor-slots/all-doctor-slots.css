@@ -167,3 +167,73 @@ h1 {
   margin-top: 16px;
   color: #94a3b8;
 }
+
+.create-panel {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 18px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.create-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.create-field label {
+  font-size: 14px;
+  color: #cbd5e1;
+}
+
+.create-field input {
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #0f172a;
+  color: white;
+  font-weight: 600;
+}
+
+.create {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: #22c55e;
+  color: white;
+  font-weight: 600;
+}
+
+.create:hover {
+  opacity: 0.9;
+}
+
+.card-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.complete {
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: #22c55e;
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+  transition: 0.2s;
+}
+
+.complete:hover {
+  opacity: 0.9;
+}

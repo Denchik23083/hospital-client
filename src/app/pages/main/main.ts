@@ -36,8 +36,6 @@ export class Main {
 
     const role = payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
-    console.log(role)
-
     switch (role) {
       case 'God':
         this.isGod.set(true);

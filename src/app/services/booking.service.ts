@@ -18,6 +18,10 @@ export class BookingService {
     return this.http.post(`${this.apiUrl}/${slotId}`, null);
   }
 
+  completeBooking(bookingId: number) {
+    return this.http.put(`${this.apiUrl}/${bookingId}/complete`, null);
+  }
+
   cancelBooking(bookingId: number) {
     return this.http.put(`${this.apiUrl}/${bookingId}/cancel`, null);
   }

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DoctorSlotService } from '../../../../services/doctor-slot.service';
 import { TokenStorageService } from '../../../../services/token-storage.service';
 import { DoctorSlotBookingResponse } from '../../../../models/responses/doctor-slot-booking-response.model';
+import { BookingService } from '../../../../services/booking.service';
 
 @Component({
   selector: 'app-all-doctor-slots',
@@ -13,6 +14,7 @@ import { DoctorSlotBookingResponse } from '../../../../models/responses/doctor-s
 })
 export class AllDoctorSlots {
   private readonly doctorSlotService = inject(DoctorSlotService);
+  private readonly bookingService = inject(BookingService);
   private readonly router = inject(Router);
 
   private readonly tokenStorage = inject(TokenStorageService);
@@ -21,6 +23,7 @@ export class AllDoctorSlots {
   times = signal<DoctorSlotBookingResponse[]>([]);
   isLoading = signal(true);
   errorMessage = signal('');
+  createDate = signal('');
   selectedDate = signal<string | null>(null);
 
   ngOnInit() {
@@ -61,6 +64,57 @@ export class AllDoctorSlots {
   showDates() {
     this.selectedDate.set(null);
     this.times.set([]);
+  }
+
+  setCreateDate(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.createDate.set(input.value);
+  }
+
+  createSlots() {
+    if (!this.createDate()) {
+      this.errorMessage.set('Выберите дату');
+      return;
+    }
+
+    this.doctorSlotService.addDoctorSlots(this.createDate()).subscribe({
+      next: () => {
+        this.errorMessage.set('');
+        this.load();
+
+        if (this.selectedDate() === this.createDate()) {
+          this.getTime(this.createDate());
+        }
+      },
+      error: () => {
+        this.errorMessage.set('Слоты на эту дату уже существуют');
+      }
+    });
+  }
+
+  complete(bookingId: number) {
+    if (!confirm('Вы точно хотите завершить запись?')) return;
+
+    this.bookingService.completeBooking(bookingId).subscribe({
+      next: () => {
+        this.times.update(list =>
+          list.map(s =>
+            s.lastBooking?.id === bookingId
+              ? { 
+                  ...s, 
+                  lastBooking: {
+                    ...s.lastBooking,
+                    bookingStatus: 'Completed'
+                  }
+                }
+              : s
+          )
+        );
+      },
+      error: () => {
+        alert('Ошибка при завершении записи');
+      }
+    });
   }
 
   back() {

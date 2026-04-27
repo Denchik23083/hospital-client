@@ -12,6 +12,17 @@
         </div>
     </div>
 
+    <div class="create-panel">
+      <div class="create-field">
+        <label>Дата для создания слотов</label>
+        <input type="date" [value]="createDate()" (change)="setCreateDate($event)">
+      </div>
+
+      <button class="create" (click)="createSlots()">
+        Создать слоты
+      </button>
+    </div>
+
     @if (isLoading()) {
       <p class="info">Загрузка...</p>
     }
@@ -50,7 +61,7 @@
 
             <p class="author">Дата: {{ slot.date }}</p>
 
-            @if (slot.lastBooking.patientResponse) {
+            @if (slot.lastBooking) {
             <div class="patient">
                 <h4>Пациент</h4>
 
@@ -76,7 +87,15 @@
                 <span>Телефон:</span>
                 <strong>{{ slot.lastBooking!.patientResponse!.phone }}</strong>
                 </div>
-            </div>
+
+                <div class="card-actions">
+                  @if (slot.lastBooking.bookingStatus === 'Active') {
+                    <button class="complete" (click)="complete(slot.lastBooking.id)">
+                      Завершить запись
+                    </button>
+                  }
+                </div>
+              </div>
             } @else {
             <p class="empty">Записи на это время нет</p>
             }

@@ -26,4 +26,8 @@ export class DoctorSlotService {
   getAllDoctorSlotsTimeByDate(doctorId: number, date: string): Observable<DoctorSlotResponse[]> {
     return this.http.get<DoctorSlotResponse[]>(`${this.apiUrl}/${doctorId}/available-times?date=${date}`);
   }
+
+  addDoctorSlots(date: string): Observable<unknown> {
+    return this.http.post(`${this.apiUrl}?date=${date}`, null);
+  }
 }

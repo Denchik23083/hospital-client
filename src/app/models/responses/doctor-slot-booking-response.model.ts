@@ -5,5 +5,5 @@ export interface DoctorSlotBookingResponse {
     date: string,
     startTime: string,
     endTime: string,
-    lastBooking: BookingPatientResponse
+    lastBooking: BookingPatientResponse | null
 }
