@@ -4,13 +4,10 @@
         <h1>Добро пожаловать</h1>
         <div class="actions">
             @if (isLogin()) {
-                @if (isGod()) {
-                    <button class="admins" (click)="admins()">Администраторы</button>
-                }
-                @if (isAdmin() || isGod()) {
+                @if (isAdmin()) {
                     <button class="users" (click)="users()">Пользователи</button>
                 }
-                @if (isAdmin() || isGod() || isPatient()) {
+                @if (isAdmin() ||  isPatient()) {
                     <button class="add" (click)="specialties()">Записаться к врачу</button>
                 }
                 @if (isDoctor()) {

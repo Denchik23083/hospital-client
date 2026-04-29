@@ -18,10 +18,8 @@ export class AllUsers {
   users = signal<UserResponse[]>([]);
   isLoading = signal(true);
   errorMessage = signal('');
-  isGod = signal(false);
 
   ngOnInit() {
-    this.checkRole();
     this.load();
   }
 
@@ -36,20 +34,6 @@ export class AllUsers {
         this.isLoading.set(false);
       }
     });
-  }
-
-  checkRole() {
-    const token = this.tokenStorage.getAccessToken();
-
-    if (!token) return;
-
-    const payload = JSON.parse(atob(token.split('.')[1]));
-
-    const role = payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-
-    if (role === 'God') {
-      this.isGod.set(true);
-    }
   }
 
   details(id: number) {

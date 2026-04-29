@@ -18,10 +18,8 @@ export class AllPatientBookings {
   bookings = signal<BookingResponse[]>([]);
   isLoading = signal(true);
   errorMessage = signal('');
-  //isGod = signal(false);
 
   ngOnInit() {
-    //this.checkRole();
     this.load();
   }
 
@@ -37,21 +35,7 @@ export class AllPatientBookings {
       }
     });
   }
-
-  /*checkRole() {
-    const token = this.tokenStorage.getAccessToken();
-
-    if (!token) return;
-
-    const payload = JSON.parse(atob(token.split('.')[1]));
-
-    const role = payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-
-    if (role === 'God') {
-      this.isGod.set(true);
-    }
-  }*/
-
+  
   back() {
     this.router.navigate(['/']);
   }

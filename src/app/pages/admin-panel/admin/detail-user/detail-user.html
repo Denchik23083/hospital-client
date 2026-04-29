@@ -22,9 +22,6 @@
         <p class="author">{{ user()!.email }}</p>
         
         <div class="card-actions">
-            @if (isGod()) {
-                <button class="edit" (click)="makeAdmin()">Повысить</button>
-            }
             <button class="delete" (click)="deleteUser()">Удалить</button>
           </div>
       </div>

@@ -3,7 +3,6 @@ import { AdminService } from '../../../../services/admin.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from '../../../../services/token-storage.service';
 import { UserResponse } from '../../../../models/responses/user-response.model';
-import { GodService } from '../../../../services/god.service';
 
 @Component({
   selector: 'app-detail-user',
@@ -13,7 +12,6 @@ import { GodService } from '../../../../services/god.service';
 })
 export class DetailUser {
   private readonly adminService = inject(AdminService);
-  private readonly godService = inject(GodService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly tokenStorage = inject(TokenStorageService);
@@ -21,10 +19,8 @@ export class DetailUser {
   user = signal<UserResponse | null>(null);
   isLoading = signal(true);
   errorMessage = signal('');
-  isGod = signal(false);
 
   ngOnInit() {
-    this.checkRole();
     this.load();
   }
 
@@ -49,35 +45,8 @@ export class DetailUser {
     });
   }
 
-  checkRole() {
-    const token = this.tokenStorage.getAccessToken();
-
-    if (!token) return;
-
-    const payload = JSON.parse(atob(token.split('.')[1]));
-
-    const role = payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-
-    if (role === 'God') {
-      this.isGod.set(true);
-    }
-  }
-
   back() {
     this.router.navigate(['/users']);
-  }
-
-  makeAdmin() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-
-    this.godService.makeAdmin(id).subscribe({
-      next: () => {
-        this.router.navigate(['/users']);
-      },
-      error: () => {
-        this.errorMessage.set('Ошибка при назначении администратором');
-      },
-    });
   }
 
   deleteUser() {

@@ -14,7 +14,6 @@ export class Main {
 
   isLogin = signal(false);
   isAdmin = signal(false);
-  isGod = signal(false);
   isPatient = signal(false);
   isDoctor = signal(false);
 
@@ -37,9 +36,6 @@ export class Main {
     const role = payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
     switch (role) {
-      case 'God':
-        this.isGod.set(true);
-        break;
       case 'Admin':
         this.isAdmin.set(true);
         break;
@@ -52,22 +48,10 @@ export class Main {
       default:
         break;
     }
-
-    /*if (role === 'Admin') {
-      this.isAdmin.set(true);
-    }
-
-    if (role === 'God') {
-      this.isGod.set(true);
-    }*/
   }
 
   users() {
     this.router.navigate(['/users']);
-  }
-
-  admins() {
-    this.router.navigate(['/admins']);
   }
 
   specialties() {
