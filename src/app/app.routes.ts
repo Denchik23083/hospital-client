@@ -65,5 +65,9 @@ export const routes: Routes = [
     path: '',
     loadComponent: () =>
       import('./pages/main/main').then(m => m.Main),
+  },
+  {
+    path: '**',
+    redirectTo: ''
   }
 ];

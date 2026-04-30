@@ -95,3 +95,31 @@ h1 {
   display: flex;
   gap: 12px;
 }
+
+.payment-info {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 4px;
+}
+
+.payment-info div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.payment-info span {
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.payment-info strong {
+  color: white;
+  font-size: 20px;
+}

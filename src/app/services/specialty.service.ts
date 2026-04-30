@@ -15,6 +15,10 @@ export class SpecialtyService {
     return this.http.get<SpecialtyResponse[]>(this.apiUrl);
   }
 
+  getSpecialtyPrice(specialtyId: number): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/${specialtyId}/price`);
+  }
+
   getAllDoctorsBySpecialty(specialtyId: number): Observable<DoctorResponse[]> {
     return this.http.get<DoctorResponse[]>(`${this.apiUrl}/${specialtyId}/doctors`);
   }

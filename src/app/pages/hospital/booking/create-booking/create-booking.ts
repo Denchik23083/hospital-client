@@ -5,6 +5,8 @@ import { TokenStorageService } from '../../../../services/token-storage.service'
 import { CommonModule } from '@angular/common';
 import { DoctorSlotResponse } from '../../../../models/responses/doctor-slot-response.model';
 import { DoctorSlotService } from '../../../../services/doctor-slot.service';
+import { SpecialtyService } from '../../../../services/specialty.service';
+import { PatientService } from '../../../../services/patient.service';
 
 @Component({
   selector: 'app-create-booking',
@@ -15,6 +17,8 @@ import { DoctorSlotService } from '../../../../services/doctor-slot.service';
 export class CreateBooking {
   private readonly bookingService = inject(BookingService);
   private readonly doctorSlotService = inject(DoctorSlotService);
+  private readonly specialtyService = inject(SpecialtyService);
+  private readonly patientService = inject(PatientService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
@@ -26,6 +30,8 @@ export class CreateBooking {
   errorMessage = signal('');
   selectedDate = signal<string | null>(null);
   isPatient = signal(false);
+  price = signal(0);
+  balance = signal(0);
 
   ngOnInit() {
     this.checkRole();
@@ -48,6 +54,24 @@ export class CreateBooking {
       this.isLoading.set(false);
       return;
     }
+
+    this.specialtyService.getSpecialtyPrice(specialtyId).subscribe({
+      next: (data) => {
+        this.price.set(data);
+      },
+      error: () => {
+        this.errorMessage.set('Ошибка загрузки цены');
+      }
+    });
+
+    this.patientService.getPatientBalance().subscribe({
+      next: (data) => {
+        this.balance.set(data);
+      },
+      error: () => {
+        this.errorMessage.set('Ошибка загрузки балланса');
+      }
+    });
 
     this.doctorSlotService.getAllDoctorSlotsDates(doctorId).subscribe({
       next: (data) => {
@@ -75,7 +99,7 @@ export class CreateBooking {
     }
   }
 
-  getTime(date: string) {
+  getTime(date: string) {    
     const doctorId = Number(this.route.snapshot.paramMap.get('doctorId'));
 
     if (!doctorId) {
@@ -106,10 +130,11 @@ export class CreateBooking {
   }
 
   createBooking(slotId: number){
+    if (!confirm('Вы точно хотите записаться на прием?')) return;
+
     this.bookingService.createBooking(slotId).subscribe({
       next: () => {
         alert('Вы успешно записались');
-
         this.router.navigate(['/']);
       },
       error: () => {

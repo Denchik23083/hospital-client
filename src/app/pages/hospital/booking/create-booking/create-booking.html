@@ -29,6 +29,19 @@
         }
       } 
       @else {
+        @if (!isLoading() && selectedDate() && isPatient()) {
+          <div class="payment-info">
+            <div>
+              <span>Цена консультации</span>
+              <strong>{{ price() }} €</strong>
+            </div>
+
+            <div>
+              <span>Ваш баланс</span>
+              <strong>{{ balance() }} €</strong>
+            </div>
+          </div>
+        }
         @for (time of times(); track time.id) {
           @if (isPatient()) {
             <div class="card" (click)="createBooking(time.id)">
