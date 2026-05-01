@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DoctorResponse } from '../models/responses/doctor-response.model';
-import { SpecialtyResponse } from '../models/responses/specialty-response.model';
+import { DoctorResponse } from '../models/responses/doctor/doctor-response.model';
+import { SpecialtyResponse } from '../models/responses/others/specialty-response.model';
 
 @Injectable({
   providedIn: 'root',

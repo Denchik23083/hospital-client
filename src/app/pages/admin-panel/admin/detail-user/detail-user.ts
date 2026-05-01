@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { AdminService } from '../../../../services/admin.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from '../../../../services/token-storage.service';
-import { UserResponse } from '../../../../models/responses/user-response.model';
+import { UserResponse } from '../../../../models/responses/others/user-response.model';
 
 @Component({
   selector: 'app-detail-user',

@@ -3,7 +3,7 @@ import { RegisterRequest } from '../models/requests/register-request.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { LoginRequest } from '../models/requests/login-request.model';
-import { TokenResponse } from '../models/responses/token-response.model';
+import { TokenResponse } from '../models/responses/others/token-response.model';
 
 @Injectable({
   providedIn: 'root',

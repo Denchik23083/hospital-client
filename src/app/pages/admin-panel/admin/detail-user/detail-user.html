@@ -18,7 +18,7 @@
 
     @if (!isLoading() && !errorMessage() && user()) {
       <div class="card">
-        <h2>{{ user()!.userName }}</h2>
+        <h2>{{ user() }}</h2>
         <p class="author">{{ user()!.email }}</p>
         
         <div class="card-actions">

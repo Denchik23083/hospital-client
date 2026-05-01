@@ -1,4 +1,4 @@
-import { BookingPatientResponse } from "./booking-patient-response.model";
+import { BookingPatientResponse } from "../booking/booking-patient-response.model";
 
 export interface DoctorSlotBookingResponse {
     id: number,

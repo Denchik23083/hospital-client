@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DoctorSlotService } from '../../../../services/doctor-slot.service';
 import { TokenStorageService } from '../../../../services/token-storage.service';
-import { DoctorSlotBookingResponse } from '../../../../models/responses/doctor-slot-booking-response.model';
+import { DoctorSlotBookingResponse } from '../../../../models/responses/doctor-slot/doctor-slot-booking-response.model';
 import { BookingService } from '../../../../services/booking.service';
 
 @Component({

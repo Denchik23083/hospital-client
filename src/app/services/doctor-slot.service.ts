@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DoctorSlotResponse } from '../models/responses/doctor-slot-response.model';
-import { DoctorSlotBookingResponse } from '../models/responses/doctor-slot-booking-response.model';
+import { DoctorSlotResponse } from '../models/responses/doctor-slot/doctor-slot-response.model';
+import { DoctorSlotBookingResponse } from '../models/responses/doctor-slot/doctor-slot-booking-response.model';
 
 @Injectable({
   providedIn: 'root',

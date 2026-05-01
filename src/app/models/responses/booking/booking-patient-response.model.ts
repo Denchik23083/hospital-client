@@ -1,4 +1,4 @@
-import { PatientResponse } from "./patient-response.model"
+import { PatientResponse } from "../patient/patient-response.model"
 
 export interface BookingPatientResponse {
     id: number,

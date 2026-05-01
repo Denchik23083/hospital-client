@@ -1,4 +1,4 @@
-import { UserResponse } from "./user-response.model";
+import { UserResponse } from "../others/user-response.model";
 
 export interface PatientWithUserResponse {
     id: number,

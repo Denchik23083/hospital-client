@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../../../../services/token-storage.service';
 import { SpecialtyService } from '../../../../services/specialty.service';
-import { SpecialtyResponse } from '../../../../models/responses/specialty-response.model';
+import { SpecialtyResponse } from '../../../../models/responses/others/specialty-response.model';
 
 @Component({
   selector: 'app-all-specialties',

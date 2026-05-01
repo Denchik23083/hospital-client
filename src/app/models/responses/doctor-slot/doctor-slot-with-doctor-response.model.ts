@@ -1,4 +1,4 @@
-import { DoctorResponse } from "./doctor-response.model";
+import { DoctorResponse } from "../doctor/doctor-response.model";
 
 export interface DoctorSlotWithDoctorResponse
 {

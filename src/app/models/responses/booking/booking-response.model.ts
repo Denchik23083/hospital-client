@@ -1,4 +1,4 @@
-import { DoctorSlotWithDoctorResponse } from "./doctor-slot-with-doctor-response.model"
+import { DoctorSlotWithDoctorResponse } from "../doctor-slot/doctor-slot-with-doctor-response.model"
 
 export interface BookingResponse {
     id: number,

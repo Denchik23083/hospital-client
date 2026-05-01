@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { BookingService } from '../../../../services/booking.service';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../../../../services/token-storage.service';
-import { BookingResponse } from '../../../../models/responses/booking-response.model';
+import { BookingResponse } from '../../../../models/responses/booking/booking-response.model';
 
 @Component({
   selector: 'app-all-patient-bookings',

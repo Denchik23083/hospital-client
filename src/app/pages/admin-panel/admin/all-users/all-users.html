@@ -19,7 +19,7 @@
     <div class="grid">
       @for (user of users(); track user.id) {
         <div class="card" (click)="details(user.id)">
-          <h3>{{ user.userName }}</h3>
+          <h3>{{ user }}</h3>
           <p class="author">{{ user.email }}</p>
         </div>
       }

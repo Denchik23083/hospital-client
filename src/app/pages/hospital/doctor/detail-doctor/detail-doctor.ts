@@ -1,21 +1,21 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PatientService } from '../../../../services/patient.service';
 import { Router, RouterModule } from '@angular/router';
+import { DoctorService } from '../../../../services/doctor.service';
 import { TokenStorageService } from '../../../../services/token-storage.service';
+import { DoctorWithUserResponse } from '../../../../models/responses/doctor/doctor-with-user-responce.model';
 import { CommonModule } from '@angular/common';
-import { PatientWithUserResponse } from '../../../../models/responses/patient/patient-with-user-responce.model';
 
 @Component({
-  selector: 'app-detail-patient',
+  selector: 'app-detail-doctor',
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
-  templateUrl: './detail-patient.html',
-  styleUrl: './detail-patient.css',
+  templateUrl: './detail-doctor.html',
+  styleUrl: './detail-doctor.css',
 })
-export class DetailPatient {
+export class DetailDoctor {
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);
-  private readonly patientService = inject(PatientService);
+  private readonly doctorService = inject(DoctorService);
   private readonly tokenStorage = inject(TokenStorageService);
 
   isLoading = signal(true);
@@ -23,14 +23,12 @@ export class DetailPatient {
   isEditMode = signal(false);
   errorMessage = signal('');
 
-  patient = signal<PatientWithUserResponse | null>(null);
+  doctor = signal<DoctorWithUserResponse | null>(null);
 
   form = this.fb.nonNullable.group({
     firstName: ['', [Validators.required]],
     lastName: ['', [Validators.required]],
-    birthDate: ['', [Validators.required]],
     genderType: [1, [Validators.required]],
-    phone: ['', [Validators.required, Validators.minLength(6)]],
   });
 
   ngOnInit(): void {
@@ -41,10 +39,10 @@ export class DetailPatient {
     this.isLoading.set(true);
     this.errorMessage.set('');
 
-    this.patientService.getPatient().subscribe({
-      next: (patient) => {
-        this.patient.set(patient);
-        this.patchForm(patient);
+    this.doctorService.getDoctor().subscribe({
+      next: (doctor) => {
+        this.doctor.set(doctor);
+        this.patchForm(doctor);
         this.isLoading.set(false);
       },
       error: () => {
@@ -55,22 +53,22 @@ export class DetailPatient {
   }
 
   enableEdit(): void {
-    const patient = this.patient();
+    const doctor = this.doctor();
 
-    if (!patient) {
+    if (!doctor) {
       return;
     }
 
-    this.patchForm(patient);
+    this.patchForm(doctor);
     this.isEditMode.set(true);
     this.errorMessage.set('');
   }
 
   cancelEdit(): void {
-    const patient = this.patient();
+    const doctor = this.doctor();
 
-    if (patient) {
-      this.patchForm(patient);
+    if (doctor) {
+      this.patchForm(doctor);
     }
 
     this.isEditMode.set(false);
@@ -86,9 +84,9 @@ export class DetailPatient {
     this.isSaving.set(true);
     this.errorMessage.set('');
 
-    this.patientService.updatePatient(this.form.getRawValue()).subscribe({
+    this.doctorService.updateDoctor(this.form.getRawValue()).subscribe({
       next: () => {
-        const current = this.patient();
+        const current = this.doctor();
 
         if (current) {
           const updated = {
@@ -96,7 +94,7 @@ export class DetailPatient {
             ...this.form.getRawValue()
           };
 
-          this.patient.set(updated);
+          this.doctor.set(updated);
         }
 
         this.isEditMode.set(false);
@@ -118,18 +116,12 @@ export class DetailPatient {
     this.router.navigate(['/login']);
   }
 
-  private patchForm(patient: any): void {
+  private patchForm(doctor: any): void {
     this.form.patchValue({
-      firstName: patient.firstName,
-      lastName: patient.lastName,
-      birthDate: this.toDateInputValue(patient.birthDate),
-      genderType: patient.genderType,
-      phone: patient.phone,
+      firstName: doctor.firstName,
+      lastName: doctor.lastName,
+      genderType: doctor.genderType,
     });
-  }
-
-  private toDateInputValue(date: string): string {
-    return date.split('T')[0];
   }
 
   get firstName() {
@@ -140,15 +132,7 @@ export class DetailPatient {
     return this.form.controls.lastName;
   }
 
-  get birthDate() {
-    return this.form.controls.birthDate;
-  }
-
   get genderType() {
     return this.form.controls.genderType;
-  }
-
-  get phone() {
-    return this.form.controls.phone;
   }
 }

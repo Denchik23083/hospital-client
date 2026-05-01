@@ -66,6 +66,10 @@ export class Main {
     this.router.navigate(['/profile/patient']);
   }
 
+  profileDoctor() {
+    this.router.navigate(['/profile/doctor']);
+  }
+
   mySlots() {
     this.router.navigate(['/myslots']);
   }
