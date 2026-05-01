@@ -1,0 +1,153 @@
+<div class="page">
+  <div class="container">
+    <div class="header">
+      <h1>Профиль пациента</h1>
+
+      <div class="actions">
+        <button class="back" (click)="back()">Назад</button>
+        <button class="logout" (click)="logout()">Выйти</button>
+      </div>
+    </div>
+
+    @if (isLoading()) {
+      <p class="info">Загрузка...</p>
+    }
+
+    @if (errorMessage()) {
+      <p class="error">{{ errorMessage() }}</p>
+    }
+
+    @if (patient()) {
+      <div class="profile-card">
+        @if (!isEditMode()) {
+          <div class="profile-header">
+            <div>
+              <h2>{{ patient()!.firstName }} {{ patient()!.lastName }}</h2>
+              <p>{{ patient()!.user.email }}</p>
+            </div>
+
+            <button class="edit" type="button" (click)="enableEdit()">
+              Изменить
+            </button>
+          </div>
+
+          <div class="profile-info">
+            <div class="meta">
+              <span>Дата рождения:</span>
+              <strong>{{ patient()!.birthDate }}</strong>
+            </div>
+
+            <div class="meta">
+              <span>Пол:</span>
+              <strong>
+                {{ patient()!.genderType === 1 ? 'Мужской' : 'Женский' }}
+              </strong>
+            </div>
+
+            <div class="meta">
+              <span>Телефон:</span>
+              <strong>{{ patient()!.phone }}</strong>
+            </div>
+
+            <div class="meta">
+              <span>Баланс:</span>
+              <strong>{{ patient()!.user.money }} €</strong>
+            </div>
+          </div>
+        } @else {
+          <h2>Изменение профиля</h2>
+
+          <form class="edit-form" [formGroup]="form" (ngSubmit)="submit()">
+            <div class="form-row">
+              <label for="firstName">Имя</label>
+              <input
+                id="firstName"
+                type="text"
+                formControlName="firstName"
+                placeholder="Введите имя"
+              />
+
+              @if (firstName.touched && firstName.invalid) {
+                <small class="error">
+                  @if (firstName.errors?.['required']) { Имя обязательно }
+                </small>
+              }
+            </div>
+
+            <div class="form-row">
+              <label for="lastName">Фамилия</label>
+              <input
+                id="lastName"
+                type="text"
+                formControlName="lastName"
+                placeholder="Введите фамилию"
+              />
+
+              @if (lastName.touched && lastName.invalid) {
+                <small class="error">
+                  @if (lastName.errors?.['required']) { Фамилия обязательна }
+                </small>
+              }
+            </div>
+
+            <div class="form-row">
+              <label for="birthDate">Дата рождения</label>
+              <input
+                id="birthDate"
+                type="date"
+                formControlName="birthDate"
+              />
+
+              @if (birthDate.touched && birthDate.invalid) {
+                <small class="error">
+                  @if (birthDate.errors?.['required']) { Дата рождения обязательна }
+                </small>
+              }
+            </div>
+
+            <div class="form-row">
+              <label for="genderType">Пол</label>
+              <select id="genderType" formControlName="genderType">
+                <option [ngValue]="1">Мужской</option>
+                <option [ngValue]="2">Женский</option>
+              </select>
+
+              @if (genderType.touched && genderType.invalid) {
+                <small class="error">
+                  @if (genderType.errors?.['required']) { Пол обязателен }
+                </small>
+              }
+            </div>
+
+            <div class="form-row">
+              <label for="phone">Телефон</label>
+              <input
+                id="phone"
+                type="text"
+                formControlName="phone"
+                placeholder="Введите телефон"
+              />
+
+              @if (phone.touched && phone.invalid) {
+                <small class="error">
+                  @if (phone.errors?.['required']) { Телефон обязателен }
+                  @if (phone.errors?.['minlength']) { Слишком короткий телефон }
+                </small>
+              }
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="cancel" (click)="cancelEdit()">
+                Отмена
+              </button>
+
+              <button type="submit" class="save" [disabled]="isSaving()">
+                {{ isSaving() ? 'Сохранение...' : 'Сохранить' }}
+              </button>
+            </div>
+          </form>
+        }
+      </div>
+    }
+  </div>
+</div>
