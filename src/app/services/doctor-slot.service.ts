@@ -27,6 +27,14 @@ export class DoctorSlotService {
     return this.http.get<DoctorSlotResponse[]>(`${this.apiUrl}/${doctorId}/available-times?date=${date}`);
   }
 
+  getAdminDoctorSlotsDates(doctorId: number): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/${doctorId}/admin/available-dates`);
+  }
+
+  getAdminDoctorSlotsTimeByDate(doctorId: number, date: string): Observable<DoctorSlotResponse[]> {
+    return this.http.get<DoctorSlotResponse[]>(`${this.apiUrl}/${doctorId}/admin/available-times?date=${date}`);
+  }
+
   addDoctorSlots(date: string): Observable<unknown> {
     return this.http.post(`${this.apiUrl}?date=${date}`, null);
   }

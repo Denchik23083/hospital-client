@@ -43,6 +43,13 @@
             </div>
 
             <div class="meta">
+              <span>Рабочее время:</span>
+              <strong>
+                {{ doctor()!.workDayStart }} - {{ doctor()!.workDayEnd }} 
+              </strong>
+            </div>
+
+            <div class="meta">
               <span>Пол:</span>
               <strong>
                 {{ doctor()!.genderType === 1 ? 'Мужской' : 'Женский' }}

@@ -36,7 +36,7 @@ h1 {
   gap: 20px;
 }
 
-.card {
+.card, .card2 {
   padding: 20px;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.06);
@@ -47,6 +47,10 @@ h1 {
 .card:hover {
   transform: translateY(-4px);
   cursor: pointer;
+}
+
+.card2:hover {
+  transform: translateY(-4px);
 }
 
 .author {

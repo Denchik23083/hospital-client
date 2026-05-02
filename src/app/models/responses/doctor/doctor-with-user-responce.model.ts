@@ -5,8 +5,10 @@ export interface DoctorWithUserResponse {
     id: number,
     firstName: string,
     lastName: string,
-    experienceYears: number
+    experienceYears: number,
     genderType: number,
+    workDayStart: string,
+    workDayEnd: string,
     specialty: SpecialtyResponse,
     user: UserResponse
 }

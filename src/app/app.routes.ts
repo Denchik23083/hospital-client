@@ -38,20 +38,6 @@ export const routes: Routes = [
       import('./pages/hospital/doctor/all-doctor-slots/all-doctor-slots').then(m => m.AllDoctorSlots)
   },
   {
-    path: 'users',
-    canActivate: [authGuard],
-    data: { roles: ['Admin'] },
-    loadComponent: () =>
-      import('./pages/admin-panel/admin/all-users/all-users').then(m => m.AllUsers)
-  },
-  {
-    path: 'users/:id',
-    canActivate: [authGuard],
-    data: { roles: ['Admin'] },
-    loadComponent: () =>
-      import('./pages/admin-panel/admin/detail-user/detail-user').then(m => m.DetailUser)
-  },
-  {
     path: 'profile/patient',
     canActivate: [authGuard],
     data: { roles: ['Patient'] },

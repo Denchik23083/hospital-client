@@ -11,7 +11,7 @@ export class BookingService {
   private readonly apiUrl = '/api/hospital/booking';
 
   getAllBookings(): Observable<BookingResponse[]> {
-      return this.http.get<BookingResponse[]>(this.apiUrl);
+    return this.http.get<BookingResponse[]>(this.apiUrl);
   }
 
   createBooking(slotId: number): Observable<unknown> {

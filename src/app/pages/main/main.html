@@ -7,7 +7,7 @@
                 @if (isAdmin()) {
                     <button class="users" (click)="users()">Пациенты</button>
                     <button class="admins" (click)="users()">Доктора</button>
-                    <button class="add" (click)="specialties()">Записаться к врачу</button>
+                    <button class="add" (click)="specialties()">Специальности</button>
                 }
                 @if (isDoctor()) {
                     <button class="add" (click)="mySlots()">Мои слоты</button>
