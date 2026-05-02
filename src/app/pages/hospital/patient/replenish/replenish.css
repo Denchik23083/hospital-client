@@ -1,0 +1,168 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
+  padding: 40px;
+}
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+h1 {
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+.back,
+.logout,
+.edit,
+.save,
+.cancel {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+}
+
+.back {
+  background: #334155;
+}
+
+.logout {
+  background: #ef4444;
+}
+
+.edit {
+  background: #3b82f6;
+}
+
+.save {
+  background: #22c55e;
+}
+
+.cancel {
+  background: #475569;
+}
+
+.back:hover,
+.logout:hover,
+.edit:hover,
+.save:hover,
+.cancel:hover {
+  opacity: 0.9;
+}
+
+.profile-card {
+  padding: 26px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.profile-header h2 {
+  margin: 0 0 6px;
+}
+
+.profile-header p {
+  margin: 0;
+  color: #94a3b8;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: #cbd5e1;
+}
+
+.meta strong {
+  color: white;
+  text-align: right;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.edit-form h2 {
+  margin: 0 0 8px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-row label {
+  font-size: 14px;
+  color: #cbd5e1;
+}
+
+.form-row input,
+.form-row select {
+  height: 42px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #0f172a;
+  color: white;
+  font-weight: 600;
+}
+
+.form-row select {
+  appearance: none;
+}
+
+.form-row option {
+  color: black;
+  background: white;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.info {
+  color: #cbd5e1;
+}
+
+.error {
+  color: #f87171;
+}

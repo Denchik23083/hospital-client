@@ -24,6 +24,13 @@ export const routes: Routes = [
       import('./pages/hospital/booking/create-booking/create-booking').then(m => m.CreateBooking)
   },
   {
+    path: 'replenish',
+    canActivate: [authGuard],
+    data: { roles: ['Patient'] },
+    loadComponent: () =>
+      import('./pages/hospital/patient/replenish/replenish').then(m => m.Replenish)
+  },
+  {
     path: 'mybookings',
     canActivate: [authGuard],
     data: { roles: ['Patient'] },

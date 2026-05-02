@@ -66,6 +66,10 @@ export class Main {
     this.router.navigate(['/profile/patient']);
   }
 
+  replenish() {
+    this.router.navigate(['/replenish']);
+  }
+
   profileDoctor() {
     this.router.navigate(['/profile/doctor']);
   }

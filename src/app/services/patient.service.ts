@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PatientRequest } from '../models/requests/patient-request.model';
 import { PatientWithUserResponse } from '../models/responses/patient/patient-with-user-responce.model';
+import { PatientReplenishBalanceRequest } from '../models/requests/patient-replenish-balance-request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,5 +22,9 @@ export class PatientService {
 
   updatePatient(data: PatientRequest): Observable<unknown> {
     return this.http.put<unknown>(this.apiUrl, data);
+  }
+
+  replenishBalance(data: PatientReplenishBalanceRequest): Observable<unknown> {
+    return this.http.put<unknown>(`${this.apiUrl}/replenish`, data);
   }
 }
