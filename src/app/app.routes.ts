@@ -3,6 +3,13 @@ import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
+    path: 'doctors',
+    canActivate: [authGuard],
+    data: { roles: ['Admin'] },
+    loadComponent: () =>
+      import('./pages/hospital/doctor/all-doctors/all-doctors').then(m => m.AllDoctors)
+  },
+  {
     path: 'specialties',
     canActivate: [authGuard],
     data: { roles: ['Admin', 'Patient'] },

@@ -5,8 +5,8 @@
         <div class="actions">
             @if (isLogin()) {
                 @if (isAdmin()) {
-                    <button class="users" (click)="users()">Пациенты</button>
-                    <button class="admins" (click)="users()">Доктора</button>
+                    <button class="users" (click)="patients()">Пациенты</button>
+                    <button class="admins" (click)="doctors()">Доктора</button>
                     <button class="add" (click)="specialties()">Специальности</button>
                 }
                 @if (isDoctor()) {

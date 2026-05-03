@@ -12,7 +12,7 @@ export class PatientService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = '/api/hospital/patient';
 
-  getPatient(): Observable<PatientWithUserResponse> {
+  getPatientByUser(): Observable<PatientWithUserResponse> {
     return this.http.get<PatientWithUserResponse>(`${this.apiUrl}/profile`);
   }
 
@@ -20,11 +20,11 @@ export class PatientService {
     return this.http.get<number>(`${this.apiUrl}/balance`);
   }
 
-  updatePatient(data: PatientRequest): Observable<unknown> {
-    return this.http.put<unknown>(this.apiUrl, data);
+  updatePatientByUser(data: PatientRequest): Observable<unknown> {
+    return this.http.put(this.apiUrl, data);
   }
 
   replenishBalance(data: PatientReplenishBalanceRequest): Observable<unknown> {
-    return this.http.put<unknown>(`${this.apiUrl}/replenish`, data);
+    return this.http.put(`${this.apiUrl}/replenish`, data);
   }
 }

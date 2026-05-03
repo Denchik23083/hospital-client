@@ -41,7 +41,7 @@ export class DetailPatient {
     this.isLoading.set(true);
     this.errorMessage.set('');
 
-    this.patientService.getPatient().subscribe({
+    this.patientService.getPatientByUser().subscribe({
       next: (patient) => {
         this.patient.set(patient);
         this.patchForm(patient);
@@ -86,7 +86,7 @@ export class DetailPatient {
     this.isSaving.set(true);
     this.errorMessage.set('');
 
-    this.patientService.updatePatient(this.form.getRawValue()).subscribe({
+    this.patientService.updatePatientByUser(this.form.getRawValue()).subscribe({
       next: () => {
         const current = this.patient();
 

@@ -39,7 +39,7 @@ export class DetailDoctor {
     this.isLoading.set(true);
     this.errorMessage.set('');
 
-    this.doctorService.getDoctor().subscribe({
+    this.doctorService.getDoctorByUser().subscribe({
       next: (doctor) => {
         this.doctor.set(doctor);
         this.patchForm(doctor);
@@ -84,7 +84,7 @@ export class DetailDoctor {
     this.isSaving.set(true);
     this.errorMessage.set('');
 
-    this.doctorService.updateDoctor(this.form.getRawValue()).subscribe({
+    this.doctorService.updateDoctorByUser(this.form.getRawValue()).subscribe({
       next: () => {
         const current = this.doctor();
 

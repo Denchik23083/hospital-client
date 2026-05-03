@@ -50,8 +50,12 @@ export class Main {
     }
   }
 
-  users() {
-    this.router.navigate(['/users']);
+  patients() {
+    this.router.navigate(['/patients']);
+  }
+
+  doctors() {
+    this.router.navigate(['/doctors']);
   }
 
   specialties() {

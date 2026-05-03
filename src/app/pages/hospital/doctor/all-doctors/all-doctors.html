@@ -1,0 +1,182 @@
+<div class="page">
+  <div class="container">
+    <div class="header">
+      <h1>Доктора</h1>
+
+      <div class="actions">
+        <button class="back" type="button" (click)="back()">Назад</button>
+        <button class="logout" type="button" (click)="logout()">Выйти</button>
+      </div>
+    </div>
+
+    @if (isLoading()) {
+      <p class="info">Загрузка...</p>
+    }
+
+    @if (errorMessage()) {
+      <p class="error">{{ errorMessage() }}</p>
+    }
+
+    @if (!isLoading() && !isEditMode()) {
+      <div class="grid">
+        @for (doctor of doctors(); track doctor.id) {
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3>{{ doctor.firstName }} {{ doctor.lastName }}</h3>
+                <p class="email">{{ doctor.user.email }}</p>
+              </div>
+            </div>
+
+            <div class="profile-info">
+              <div class="meta">
+                <span>Специальность:</span>
+                <strong>{{ doctor.specialty.name }}</strong>
+              </div>
+
+              <div class="meta">
+                <span>Лет опыта:</span>
+                <strong>{{ doctor.experienceYears }}</strong>
+              </div>
+
+              <div class="meta">
+                <span>Рабочее время:</span>
+                <strong>{{ doctor.workDayStart }} - {{ doctor.workDayEnd }}</strong>
+              </div>
+
+              <div class="meta">
+                <span>Пол:</span>
+                <strong>{{ doctor.genderType === 1 ? 'Мужской' : 'Женский' }}</strong>
+              </div>
+
+              <div class="meta">
+                <span>Цена:</span>
+                <strong>{{ doctor.specialty.price }} €</strong>
+              </div>
+
+              <div class="meta">
+                <span>Баланс:</span>
+                <strong>{{ doctor.user.money }} €</strong>
+              </div>
+            </div>
+
+            <div class="card-actions">
+              <button class="edit" type="button" (click)="enableEdit(doctor)">
+                Изменить
+              </button>
+
+              <button class="delete" type="button" (click)="deleteDoctor(doctor.id)">
+                Удалить
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    @if (isEditMode() && selectedDoctor()) {
+      <div class="profile-card">
+        <h2>Изменение доктора</h2>
+
+        <form class="edit-form" [formGroup]="form" (ngSubmit)="submit()">
+          <div class="form-row">
+            <label for="firstName">Имя</label>
+            <input
+              id="firstName"
+              type="text"
+              formControlName="firstName"
+              placeholder="Введите имя"
+            />
+
+            @if (firstName.touched && firstName.invalid) {
+              <small class="error">Имя обязательно</small>
+            }
+          </div>
+
+          <div class="form-row">
+            <label for="lastName">Фамилия</label>
+            <input
+              id="lastName"
+              type="text"
+              formControlName="lastName"
+              placeholder="Введите фамилию"
+            />
+
+            @if (lastName.touched && lastName.invalid) {
+              <small class="error">Фамилия обязательна</small>
+            }
+          </div>
+
+          <div class="form-row">
+            <label for="genderType">Пол</label>
+            <select id="genderType" formControlName="genderType">
+              <option [ngValue]="1">Мужской</option>
+              <option [ngValue]="2">Женский</option>
+            </select>
+
+            @if (genderType.touched && genderType.invalid) {
+              <small class="error">Пол обязателен</small>
+            }
+          </div>
+
+          <div class="form-row">
+            <label for="experienceYears">Опыт работы</label>
+            <input
+              id="experienceYears"
+              type="number"
+              min="0"
+              formControlName="experienceYears"
+              placeholder="Введите опыт"
+            />
+
+            @if (experienceYears.touched && experienceYears.invalid) {
+              <small class="error">Опыт работы обязателен</small>
+            }
+          </div>
+
+          <div class="form-row">
+            <label for="workDayStart">Начало рабочего дня</label>
+            <input
+              id="workDayStart"
+              type="time"
+              min="09:00"
+              max="17:00"
+              step="1800"
+              formControlName="workDayStart"
+            />
+
+            @if (workDayStart.touched && workDayStart.invalid) {
+              <small class="error">Начало рабочего дня обязательно</small>
+            }
+          </div>
+
+          <div class="form-row">
+            <label for="workDayEnd">Конец рабочего дня</label>
+            <input
+              id="workDayEnd"
+              type="time"
+              min="09:00"
+              max="17:00"
+              step="1800"
+              formControlName="workDayEnd"
+            />
+
+            @if (workDayEnd.touched && workDayEnd.invalid) {
+              <small class="error">Конец рабочего дня обязателен</small>
+            }
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="cancel" (click)="cancelEdit()">
+              Отмена
+            </button>
+
+            <button type="submit" class="save" [disabled]="isSaving()">
+              {{ isSaving() ? 'Сохранение...' : 'Сохранить' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    }
+  </div>
+</div>
