@@ -26,7 +26,14 @@ export class Register {
     lastName: ['', [Validators.required]],
     birthDate: ['', [Validators.required]],
     genderType: [1, [Validators.required]],
-    phone: ['', [Validators.required, Validators.minLength(6)]],
+    phone: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.pattern(/^\+?[0-9\s\-()]{6,}$/),
+      ],
+    ],
   });
 
   submit(): void {

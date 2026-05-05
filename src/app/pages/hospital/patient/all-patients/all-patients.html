@@ -1,0 +1,105 @@
+<div class="page">
+  <div class="container">
+    <div class="header">
+      <h1>Пациенты</h1>
+
+      <div class="actions">
+        <button class="back" type="button" (click)="back()">Назад</button>
+        <button class="logout" type="button" (click)="logout()">Выйти</button>
+      </div>
+    </div>
+
+    <div class="filters">
+        <div class="filter-row">
+            <label for="nameFilter">Поиск по имени</label>
+            <input
+            id="nameFilter"
+            type="text"
+            placeholder="Введите имя или фамилию"
+            [value]="nameFilter()"
+            (input)="onNameFilterChange($event)"
+            />
+        </div>
+    
+        <div class="filter-row">
+            <label for="phoneFilter">Поиск по мобильному телефону</label>
+            <input
+            id="phoneFilter"
+            type="text"
+            placeholder="Введите номер телефона"
+            [value]="phoneFilter()"
+            (input)="onPhoneFilterChange($event)"
+            />
+        </div>
+
+        <div class="filter-row">
+            <label for="genderFilter">Пол</label>
+            <select
+            id="genderFilter"
+            [value]="genderFilter()"
+            (change)="onGenderFilterChange($event)">
+            <option value="0">Bce</option>
+            <option value="1">Мужской</option>
+            <option value="2">Женский</option>
+            </select>
+        </div>
+
+        <button class="clear-filters" type="button" (click)="clearFilters()">
+            Сбросить
+        </button>
+    </div>
+
+    @if (isLoading()) {
+      <p class="info">Загрузка...</p>
+    }
+
+    @if (errorMessage()) {
+      <p class="error">{{ errorMessage() }}</p>
+    }
+
+    @if (!isLoading()) {
+      <div class="grid">
+        @for (patient of filteredPatients(); track patient.id) {
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3>{{ patient.firstName }} {{ patient.lastName }}</h3>
+                <p class="email">{{ patient.user.email }}</p>
+              </div>
+            </div>
+
+            <div class="profile-info">
+              <div class="meta">
+                <span>Дата рождения:</span>
+                <strong>{{ patient.birthDate }}</strong>
+              </div>
+
+              <div class="meta">
+                <span>Номер телефона:</span>
+                <strong>{{ patient.phone }}</strong>
+              </div>
+
+              <div class="meta">
+                <span>Пол:</span>
+                <strong>{{ patient.genderType === 1 ? 'Мужской' : 'Женский' }}</strong>
+              </div>
+
+              <div class="meta">
+                <span>Баланс:</span>
+                <strong>{{ patient.user.money }} €</strong>
+              </div>
+            </div>
+
+            @if (isAdmin()) {
+                <div class="card-actions">
+                    <button class="delete" type="button" (click)="deletePatient(patient.id)">
+                        Удалить
+                    </button>
+                </div>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

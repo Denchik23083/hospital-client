@@ -10,6 +10,13 @@ export const routes: Routes = [
       import('./pages/hospital/doctor/all-doctors/all-doctors').then(m => m.AllDoctors)
   },
   {
+    path: 'patients',
+    canActivate: [authGuard],
+    data: { roles: ['Admin', 'Doctor'] },
+    loadComponent: () =>
+      import('./pages/hospital/patient/all-patients/all-patients').then(m => m.AllPatients)
+  },
+  {
     path: 'specialties',
     canActivate: [authGuard],
     data: { roles: ['Admin', 'Patient'] },

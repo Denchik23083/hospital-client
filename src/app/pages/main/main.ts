@@ -32,22 +32,11 @@ export class Main {
     this.isLogin.set(true);
 
     const payload = JSON.parse(atob(token.split('.')[1]));
-
     const role = payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
-    switch (role) {
-      case 'Admin':
-        this.isAdmin.set(true);
-        break;
-      case 'Doctor':
-        this.isDoctor.set(true);
-        break;
-      case 'Patient':
-        this.isPatient.set(true);
-        break;
-      default:
-        break;
-    }
+    this.isPatient.set(role === 'Patient');
+    this.isDoctor.set(role === 'Doctor');
+    this.isAdmin.set(role === 'Admin');
   }
 
   patients() {
