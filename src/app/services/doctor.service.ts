@@ -20,12 +20,16 @@ export class DoctorService {
     return this.http.get<DoctorWithUserResponse>(`${this.apiUrl}/profile`);
   }
 
+  createDoctor(data: DoctorFullRequest): Observable<unknown> {
+    return this.http.post(this.apiUrl, data);
+  }
+
   updateDoctor(id: number, data: DoctorFullRequest): Observable<unknown> {
     return this.http.put(`${this.apiUrl}/${id}`, data);
   }
 
   updateDoctorByUser(data: DoctorRequest): Observable<unknown> {
-    return this.http.put(this.apiUrl, data);
+    return this.http.put(`${this.apiUrl}/profile`, data);
   }
 
   deleteDoctor(id: number): Observable<unknown> {

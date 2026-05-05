@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 
 import { DoctorService } from '../../../../services/doctor.service';
 import { TokenStorageService } from '../../../../services/token-storage.service';
 import { DoctorWithUserResponse } from '../../../../models/responses/doctor/doctor-with-user-responce.model';
+import { SpecialtyService } from '../../../../services/specialty.service';
+import { SpecialtyResponse } from '../../../../models/responses/others/specialty-response.model';
 
 @Component({
   selector: 'app-all-doctors',
@@ -17,14 +19,45 @@ export class AllDoctors {
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);
   private readonly doctorService = inject(DoctorService);
+  private readonly specialtyService = inject(SpecialtyService);
   private readonly tokenStorage = inject(TokenStorageService);
 
+  specialties = signal<SpecialtyResponse[]>([]);
   doctors = signal<DoctorWithUserResponse[]>([]);
   selectedDoctor = signal<DoctorWithUserResponse | null>(null);
 
+  nameFilter = signal('');
+  specialtyFilter = signal<number>(0);
+  genderFilter = signal<number>(0);
+
+  filteredDoctors = computed(() => {
+    const name = this.nameFilter().trim().toLowerCase();
+    const specialtyId = this.specialtyFilter();
+    const gender = this.genderFilter();
+
+    return this.doctors().filter((doctor) => {
+      const firstName = doctor.firstName.toLowerCase();
+      const lastName = doctor.lastName.toLowerCase();
+
+      const matchesName =
+        !name ||
+        firstName.startsWith(name) ||
+        lastName.startsWith(name);
+
+      const matchesSpecialty =
+        specialtyId === 0 || doctor.specialty.id === specialtyId;
+
+      const matchesGender =
+        gender === 0 || doctor.genderType === gender;
+
+      return matchesName && matchesSpecialty && matchesGender;
+    });
+  });
+
+  formMode = signal<'create' | 'edit' | null>(null);
+
   isLoading = signal(true);
   isSaving = signal(false);
-  isEditMode = signal(false);
   errorMessage = signal('');
 
   form = this.fb.nonNullable.group({
@@ -34,6 +67,9 @@ export class AllDoctors {
     experienceYears: [1, [Validators.required, Validators.min(1)]],
     workDayStart: ['09:00', [Validators.required]],
     workDayEnd: ['17:00', [Validators.required]],
+    specialtyId: [0, [Validators.required, Validators.min(1)]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
   });
 
   ngOnInit(): void {
@@ -43,6 +79,16 @@ export class AllDoctors {
   load(): void {
     this.isLoading.set(true);
     this.errorMessage.set('');
+
+    this.specialtyService.getAllSpecialties().subscribe({
+      next: (specialties) => {
+        this.specialties.set(specialties);
+      },
+      error: () => {
+        this.errorMessage.set('Ошибка загрузки направлений');
+        this.isLoading.set(false);
+      },
+    });
 
     this.doctorService.getAllDoctors().subscribe({
       next: (doctors) => {
@@ -56,9 +102,30 @@ export class AllDoctors {
     });
   }
 
+  enableCreate(): void {
+    this.selectedDoctor.set(null);
+    this.formMode.set('create');
+    this.errorMessage.set('');
+
+    this.form.reset({
+      firstName: '',
+      lastName: '',
+      genderType: 1,
+      experienceYears: 1,
+      workDayStart: '09:00',
+      workDayEnd: '17:00',
+      specialtyId: 0,
+      email: '',
+      password: '',
+    });
+
+    this.password.setValidators([Validators.required]);
+    this.password.updateValueAndValidity();
+  }
+
   enableEdit(doctor: DoctorWithUserResponse): void {
     this.selectedDoctor.set(doctor);
-    this.isEditMode.set(true);
+    this.formMode.set('edit');
     this.errorMessage.set('');
 
     this.form.patchValue({
@@ -68,31 +135,34 @@ export class AllDoctors {
       experienceYears: doctor.experienceYears,
       workDayStart: this.normalizeTime(doctor.workDayStart),
       workDayEnd: this.normalizeTime(doctor.workDayEnd),
+      specialtyId: doctor.specialty.id,
+      email: doctor.user.email,
+      password: '',
     });
+
+    this.password.clearValidators();
+    this.password.updateValueAndValidity();
   }
 
-  cancelEdit(): void {
+  cancelForm(): void {
     this.selectedDoctor.set(null);
-    this.isEditMode.set(false);
+    this.formMode.set(null);
     this.errorMessage.set('');
 
     this.form.reset({
       firstName: '',
       lastName: '',
       genderType: 1,
-      experienceYears: 0,
+      experienceYears: 1,
       workDayStart: '09:00',
       workDayEnd: '17:00',
+      specialtyId: 0,
+      email: '',
+      password: '',
     });
   }
 
   submit(): void {
-    const doctor = this.selectedDoctor();
-
-    if (!doctor) {
-      return;
-    }
-
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -107,28 +177,53 @@ export class AllDoctors {
       return;
     }
 
+    if (this.formMode() === 'create') {
+      this.createDoctor();
+      return;
+    }
+
+    if (this.formMode() === 'edit') {
+      this.updateDoctor();
+      return;
+    }
+  }
+
+  private createDoctor(): void {
+    const model = this.form.getRawValue();
+
+    this.isSaving.set(true);
+    this.errorMessage.set('');
+
+    this.doctorService.createDoctor(model).subscribe({
+      next: () => {
+        this.isSaving.set(false);
+        this.cancelForm();
+        this.load();
+      },
+      error: () => {
+        this.errorMessage.set('Ошибка создания доктора');
+        this.isSaving.set(false);
+      },
+    });
+  }
+
+  private updateDoctor(): void {
+    const doctor = this.selectedDoctor();
+
+    if (!doctor) {
+      return;
+    }
+
+    const model = this.form.getRawValue();
+
     this.isSaving.set(true);
     this.errorMessage.set('');
 
     this.doctorService.updateDoctor(doctor.id, model).subscribe({
       next: () => {
-        const updatedDoctor: DoctorWithUserResponse = {
-          ...doctor,
-          firstName: model.firstName,
-          lastName: model.lastName,
-          genderType: model.genderType,
-          experienceYears: model.experienceYears,
-          workDayStart: model.workDayStart,
-          workDayEnd: model.workDayEnd,
-        };
-
-        this.doctors.update((doctors) =>
-          doctors.map((d) => (d.id === doctor.id ? updatedDoctor : d))
-        );
-
-        this.selectedDoctor.set(null);
-        this.isEditMode.set(false);
         this.isSaving.set(false);
+        this.cancelForm();
+        this.load();
       },
       error: () => {
         this.errorMessage.set('Ошибка обновления доктора');
@@ -138,6 +233,8 @@ export class AllDoctors {
   }
 
   deleteDoctor(id: number): void {
+    if (!confirm('Вы точно хотите удалить доктора?')) return;
+
     this.doctorService.deleteDoctor(id).subscribe({
       next: () => {
         this.doctors.update((doctors) => doctors.filter((d) => d.id !== id));
@@ -155,6 +252,27 @@ export class AllDoctors {
   logout(): void {
     this.tokenStorage.clearTokens();
     this.router.navigate(['/login']);
+  }
+
+  onNameFilterChange(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.nameFilter.set(value);
+  }
+
+  onSpecialtyFilterChange(event: Event): void {
+    const value = Number((event.target as HTMLSelectElement).value);
+    this.specialtyFilter.set(value);
+  }
+
+  onGenderFilterChange(event: Event): void {
+    const value = Number((event.target as HTMLSelectElement).value);
+    this.genderFilter.set(value);
+  }
+
+  clearFilters(): void {
+    this.nameFilter.set('');
+    this.specialtyFilter.set(0);
+    this.genderFilter.set(0);
   }
 
   private normalizeTime(time: string): string {
@@ -198,6 +316,16 @@ export class AllDoctors {
   get workDayEnd() {
     return this.form.controls.workDayEnd;
   }
+
+  get specialtyId() {
+    return this.form.controls.specialtyId;
+  }
+
+  get email() {
+    return this.form.controls.email;
+  }
+
+  get password() {
+    return this.form.controls.password;
+  }
 }
-
-

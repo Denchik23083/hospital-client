@@ -4,10 +4,63 @@
       <h1>Доктора</h1>
 
       <div class="actions">
+        @if (!formMode()) {
+          <button class="add" type="button" (click)="enableCreate()">
+            Создать доктора
+          </button>
+        }
+
         <button class="back" type="button" (click)="back()">Назад</button>
         <button class="logout" type="button" (click)="logout()">Выйти</button>
       </div>
     </div>
+
+    @if (!formMode()) {
+      <div class="filters">
+        <div class="filter-row">
+          <label for="nameFilter">Поиск по имени</label>
+          <input
+            id="nameFilter"
+            type="text"
+            placeholder="Введите имя или фамилию"
+            [value]="nameFilter()"
+            (input)="onNameFilterChange($event)"
+          />
+        </div>
+
+        <div class="filter-row">
+          <label for="specialtyFilter">Специальность</label>
+          <select
+            id="specialtyFilter"
+            [value]="specialtyFilter()"
+            (change)="onSpecialtyFilterChange($event)">
+            <option [value]="0">Bce специальности</option>
+
+            @for (specialty of specialties(); track specialty.id) {
+              <option [value]="specialty.id">
+                {{ specialty.name }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <div class="filter-row">
+          <label for="genderFilter">Пол</label>
+          <select
+            id="genderFilter"
+            [value]="genderFilter()"
+            (change)="onGenderFilterChange($event)">
+            <option value="0">Bce</option>
+            <option value]="1">Мужской</option>
+            <option value="2">Женский</option>
+          </select>
+        </div>
+
+        <button class="clear-filters" type="button" (click)="clearFilters()">
+          Сбросить
+        </button>
+      </div>
+    }
 
     @if (isLoading()) {
       <p class="info">Загрузка...</p>
@@ -17,9 +70,9 @@
       <p class="error">{{ errorMessage() }}</p>
     }
 
-    @if (!isLoading() && !isEditMode()) {
+    @if (!isLoading() && !formMode()) {
       <div class="grid">
-        @for (doctor of doctors(); track doctor.id) {
+        @for (doctor of filteredDoctors(); track doctor.id) {
           <div class="card">
             <div class="card-header">
               <div>
@@ -74,9 +127,11 @@
       </div>
     }
 
-    @if (isEditMode() && selectedDoctor()) {
+    @if (formMode()) {
       <div class="profile-card">
-        <h2>Изменение доктора</h2>
+        <h2>
+          {{ formMode() === 'create' ? 'Создание доктора' : 'Изменение доктора' }}
+        </h2>
 
         <form class="edit-form" [formGroup]="form" (ngSubmit)="submit()">
           <div class="form-row">
@@ -124,7 +179,7 @@
             <input
               id="experienceYears"
               type="number"
-              min="0"
+              min="1"
               formControlName="experienceYears"
               placeholder="Введите опыт"
             />
@@ -166,8 +221,60 @@
             }
           </div>
 
+          <div class="form-row">
+            <label for="specialtyId">Специальность</label>
+            <select id="specialtyId" formControlName="specialtyId">
+              <option [ngValue]="0" disabled>Выберите специальность</option>
+
+              @for (specialty of specialties(); track specialty.id) {
+                <option [ngValue]="specialty.id">
+                  {{ specialty.name }} — {{ specialty.price }} €
+                </option>
+              }
+            </select>
+
+            @if (specialtyId.touched && specialtyId.invalid) {
+              <small class="error">Специальность обязательна</small>
+            }
+          </div>
+
+          <div class="form-row">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              placeholder="Введите email"
+            />
+
+            @if (email.touched && email.invalid) {
+              <small class="error">Введите корректный email</small>
+            }
+          </div>
+
+          <div class="form-row">
+            <label for="password">
+              {{ formMode() === 'create' ? 'Пароль' : 'Новый пароль' }}
+            </label>
+
+            <input
+              id="password"
+              type="password"
+              formControlName="password"
+              placeholder="Введите пароль"
+            />
+
+            @if (formMode() === 'edit') {
+              <small class="hint">Оставь пустым, если не хочешь менять пароль</small>
+            }
+
+            @if (password.touched && password.invalid) {
+              <small class="error">Пароль обязателен</small>
+            }
+          </div>
+
           <div class="form-actions">
-            <button type="button" class="cancel" (click)="cancelEdit()">
+            <button type="button" class="cancel" (click)="cancelForm()">
               Отмена
             </button>
 

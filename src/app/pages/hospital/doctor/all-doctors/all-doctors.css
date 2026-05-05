@@ -167,3 +167,72 @@ h1 {
 .error {
   color: #f87171;
 }
+
+.add {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+  background: #22c55e;
+}
+
+.add:hover {
+  opacity: 0.9;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr auto;
+  gap: 16px;
+  align-items: end;
+  margin-bottom: 24px;
+  padding: 18px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.filter-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-row label {
+  font-size: 14px;
+  color: #cbd5e1;
+}
+
+.filter-row input,
+.filter-row select {
+  height: 42px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #0f172a;
+  color: white;
+  font-weight: 600;
+}
+
+.filter-row option {
+  color: black;
+  background: white;
+}
+
+.clear-filters {
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: #475569;
+  color: white;
+  font-weight: 600;
+}
+
+.clear-filters:hover {
+  opacity: 0.9;
+}

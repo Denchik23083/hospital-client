@@ -5,4 +5,7 @@ export interface DoctorFullRequest {
     experienceYears: number,
     workDayStart: string,
     workDayEnd: string,
+    specialtyId: number,
+    email: string,
+    password: string
 }
