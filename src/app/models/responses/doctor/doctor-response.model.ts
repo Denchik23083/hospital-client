@@ -3,5 +3,5 @@ export interface DoctorResponse {
     firstName: string,
     lastName: string,
     experienceYears: number
-    genderType: string
+    genderType: number
 }

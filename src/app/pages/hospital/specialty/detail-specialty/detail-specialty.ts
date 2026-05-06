@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { SpecialtyService } from '../../../../services/specialty.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from '../../../../services/token-storage.service';
@@ -18,6 +18,30 @@ export class DetailSpecialty {
   private readonly tokenStorage = inject(TokenStorageService);
 
   doctors = signal<DoctorResponse[]>([]);
+
+  nameFilter = signal('');
+  genderFilter = signal<number>(0);
+
+  filteredDoctors = computed(() => {
+    const name = this.nameFilter().trim().toLowerCase();
+    const gender = this.genderFilter();
+
+    return this.doctors().filter((doctor) => {
+      const firstName = doctor.firstName.toLowerCase();
+      const lastName = doctor.lastName.toLowerCase();
+
+      const matchesName =
+        !name ||
+        firstName.startsWith(name) ||
+        lastName.startsWith(name);
+
+      const matchesGender =
+        gender === 0 || doctor.genderType === gender;
+
+      return matchesName && matchesGender;
+    });
+  });
+
   isLoading = signal(true);
   errorMessage = signal('');
 
@@ -59,5 +83,20 @@ export class DetailSpecialty {
   logout() {
     this.tokenStorage.clearTokens();
     this.router.navigate(['/login']);
+  }
+
+  onNameFilterChange(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.nameFilter.set(value);
+  }
+
+  onGenderFilterChange(event: Event): void {
+    const value = Number((event.target as HTMLSelectElement).value);
+    this.genderFilter.set(value);
+  }
+
+  clearFilters(): void {
+    this.nameFilter.set('');
+    this.genderFilter.set(0);
   }
 }

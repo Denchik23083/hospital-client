@@ -31,6 +31,8 @@ export class DetailPatient {
     birthDate: ['', [Validators.required]],
     genderType: [1, [Validators.required]],
     phone: ['', [Validators.required, Validators.minLength(6)]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
   });
 
   ngOnInit(): void {
@@ -125,6 +127,8 @@ export class DetailPatient {
       birthDate: this.toDateInputValue(patient.birthDate),
       genderType: patient.genderType,
       phone: patient.phone,
+      email: patient.user.email,
+      password: ''
     });
   }
 
@@ -150,5 +154,13 @@ export class DetailPatient {
 
   get phone() {
     return this.form.controls.phone;
+  }
+
+  get email() {
+    return this.form.controls.email;
+  }
+
+  get password() {
+    return this.form.controls.password;
   }
 }

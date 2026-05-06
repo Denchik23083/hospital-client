@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../../../../services/token-storage.service';
 import { SpecialtyService } from '../../../../services/specialty.service';
@@ -17,6 +17,30 @@ export class AllSpecialties {
   private readonly tokenStorage = inject(TokenStorageService);
 
   specialties = signal<SpecialtyResponse[]>([]);
+
+  nameFilter = signal('');
+  priceFilter = signal<number>(0);
+
+  filteredSpecialties = computed(() => {
+    const name = this.nameFilter().trim().toLowerCase();
+    const price = this.priceFilter();
+
+    return this.specialties().filter((specialty) => {
+      const firstName = specialty.name.toLowerCase();
+      const prices = specialty.price;
+
+      const matchesName =
+        !name ||
+        firstName.startsWith(name);
+
+      const matchesPrice =
+        !price ||
+        prices === price;
+
+      return matchesName && matchesPrice;
+    });
+  });
+
   isLoading = signal(true);
   errorMessage = signal('');
 
@@ -48,6 +72,21 @@ export class AllSpecialties {
   logout() {
     this.tokenStorage.clearTokens();
     this.router.navigate(['/login']);
+  }
+
+  onNameFilterChange(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.nameFilter.set(value);
+  }
+
+  onPriceFilterChange(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.priceFilter.set(value ? Number(value) : 0);
+  }
+
+  clearFilters(): void {
+    this.nameFilter.set('');
+    this.priceFilter.set(0);
   }
 }
 

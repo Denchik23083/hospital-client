@@ -136,6 +136,37 @@
               }
             </div>
 
+            <div class="form-row">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              placeholder="Введите email"
+            />
+
+            @if (email.touched && email.invalid) {
+              <small class="error">Введите корректный email</small>
+            }
+          </div>
+
+          <div class="form-row">
+            <label for="password">Пароль</label>
+
+            <input
+              id="password"
+              type="password"
+              formControlName="password"
+              placeholder="Введите пароль"
+            />
+
+            <small class="hint">Оставь пустым, если не хочешь менять пароль</small>
+
+            @if (password.touched && password.invalid) {
+              <small class="error">Пароль обязателен</small>
+            }
+          </div>
+
             <div class="form-actions">
               <button type="button" class="cancel" (click)="cancelEdit()">
                 Отмена

@@ -8,6 +8,35 @@
         </div>
     </div>
 
+    <div class="filters">
+      <div class="filter-row">
+        <label for="nameFilter">Поиск по имени</label>
+        <input
+          id="nameFilter"
+          type="text"
+          placeholder="Введите имя или фамилию"
+          [value]="nameFilter()"
+          (input)="onNameFilterChange($event)"
+        />
+      </div>
+
+      <div class="filter-row">
+        <label for="genderFilter">Пол</label>
+        <select
+          id="genderFilter"
+          [value]="genderFilter()"
+          (change)="onGenderFilterChange($event)">
+          <option value="0">Bce</option>
+          <option value="1">Мужской</option>
+          <option value="2">Женский</option>
+        </select>
+      </div>
+
+      <button class="clear-filters" type="button" (click)="clearFilters()">
+        Сбросить
+      </button>
+    </div>
+
     @if (isLoading()) {
       <p class="info">Загрузка...</p>
     }
@@ -17,13 +46,13 @@
     }
 
     <div class="grid">
-      @for (doctor of doctors(); track doctor.id) {
+      @for (doctor of filteredDoctors(); track doctor.id) {
         <div class="card" (click)="details(doctor.id)">
           <h3>{{ doctor.firstName }} {{ doctor.lastName }}</h3>
           <p class="author">Опыт работы лет: {{ doctor.experienceYears }}</p>
 
           <div class="meta">
-            <span>{{ doctor.genderType.toString() }} </span>
+            <span>{{ doctor.genderType === 1 ? 'Мужской' : 'Женский' }} </span>
           </div>
         </div>
       }

@@ -8,6 +8,34 @@
         </div>
     </div>
 
+    <div class="filters">
+      <div class="filter-row">
+        <label for="nameFilter">Поиск по названию</label>
+        <input
+        id="nameFilter"
+        type="text"
+        placeholder="Введите название"
+        [value]="nameFilter()"
+        (input)="onNameFilterChange($event)"
+        />
+      </div>
+
+      <div class="filter-row">
+        <label for="priceFilter">Поиск цене</label>
+        <input
+        id="priceFilter"
+        type="number"
+        placeholder="Введите цену"
+        [value]="priceFilter()"
+        (input)="onPriceFilterChange($event)"
+        />
+      </div>
+
+      <button class="clear-filters" type="button" (click)="clearFilters()">
+          Сбросить
+      </button>
+    </div>
+
     @if (isLoading()) {
       <p class="info">Загрузка...</p>
     }
@@ -17,7 +45,7 @@
     }
 
     <div class="grid">
-      @for (specialty of specialties(); track specialty.id) {
+      @for (specialty of filteredSpecialties(); track specialty.id) {
         <div class="card" (click)="details(specialty.id)">
           <h3>{{ specialty.name }}</h3>
           <p class="author">{{ specialty.price }}$</p>

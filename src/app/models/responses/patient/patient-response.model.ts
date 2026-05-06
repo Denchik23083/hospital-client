@@ -3,6 +3,6 @@ export interface PatientResponse {
     firstName: string,
     lastName: string,
     birthDate: string,
-    genderType: string,
+    genderType: number,
     phone: string,
 }

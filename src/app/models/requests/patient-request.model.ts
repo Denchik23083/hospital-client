@@ -4,4 +4,6 @@ export interface PatientRequest {
     birthDate: string,
     genderType: number,
     phone: string,
+    email: string,
+    password: string
 }
