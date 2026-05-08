@@ -27,10 +27,10 @@
             </h3>
 
             <span class="status"
-                  [class.active]="booking.bookingStatus === 'Active'"
-                  [class.cancelled]="booking.bookingStatus === 'Cancelled'"
-                  [class.completed]="booking.bookingStatus === 'Completed'">
-              {{ booking.bookingStatus }}
+              [class.active]="booking.bookingStatus === 'Active'"
+              [class.cancelled]="booking.bookingStatus === 'Cancelled'"
+              [class.completed]="booking.bookingStatus === 'Completed'">
+              {{ getBookingStatus(booking.bookingStatus) }}
             </span>
           </div>
 

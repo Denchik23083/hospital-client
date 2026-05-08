@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { TokenStorageService } from '../../services/token-storage.service';
+import { TokenStorageService } from '../../../services/token-storage.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -69,6 +69,10 @@ export class Main {
 
   mySlots() {
     this.router.navigate(['/myslots']);
+  }
+
+  notifications() {
+    this.router.navigate(['/notifications']);
   }
 
   login() {

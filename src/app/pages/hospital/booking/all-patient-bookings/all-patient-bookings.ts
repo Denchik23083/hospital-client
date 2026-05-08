@@ -40,6 +40,22 @@ export class AllPatientBookings {
     this.router.navigate(['/']);
   }
 
+  getBookingStatus(status: string): string {
+    switch (status) {
+      case 'Active':
+        return 'Активна';
+
+      case 'Cancelled':
+        return 'Отменена';
+
+      case 'Completed':
+        return 'Завершена';
+
+      default:
+        return status;
+    }
+  }
+
   cancel(bookingId: number) {
     if (!confirm('Вы точно хотите отменить запись?')) return;
 

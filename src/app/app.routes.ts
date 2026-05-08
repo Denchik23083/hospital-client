@@ -83,9 +83,16 @@ export const routes: Routes = [
       import('./pages/auth/register/register').then(m => m.Register)
   },
   {
+    path: 'notifications',
+    canActivate: [authGuard],
+    data: { roles: ['Doctor', 'Patient'] },
+    loadComponent: () =>
+      import('./pages/main/notification/notification').then(m => m.Notification),
+  },
+  {
     path: '',
     loadComponent: () =>
-      import('./pages/main/main').then(m => m.Main),
+      import('./pages/main/main/main').then(m => m.Main),
   },
   {
     path: '**',

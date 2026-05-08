@@ -48,13 +48,11 @@
             @if (slot.lastBooking === null) {
                 <span class="status free">Свободно</span>
             } @else {
-                <span
-                class="status"
-                [class.active]="slot.lastBooking.bookingStatus === 'Active'"
-                [class.cancelled]="slot.lastBooking.bookingStatus === 'Cancelled'"
-                [class.completed]="slot.lastBooking.bookingStatus === 'Completed'"
-                >
-                {{ slot.lastBooking.bookingStatus }}
+                <span class="status"
+                  [class.active]="slot.lastBooking.bookingStatus === 'Active'"
+                  [class.cancelled]="slot.lastBooking.bookingStatus === 'Cancelled'"
+                  [class.completed]="slot.lastBooking.bookingStatus === 'Completed'">
+                  {{ getBookingStatus(slot.lastBooking.bookingStatus) }}
                 </span>
             }
             </div>

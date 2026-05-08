@@ -43,6 +43,22 @@ export class AllDoctorSlots {
     });
   }
 
+  getBookingStatus(status: string): string {
+    switch (status) {
+      case 'Active':
+        return 'Активна';
+
+      case 'Cancelled':
+        return 'Отменена';
+
+      case 'Completed':
+        return 'Завершена';
+
+      default:
+        return status;
+    }
+  }
+
   getTime(date: string) {
     this.isLoading.set(true);
     this.errorMessage.set('');
