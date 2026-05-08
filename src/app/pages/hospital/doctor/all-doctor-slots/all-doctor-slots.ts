@@ -108,6 +108,20 @@ export class AllDoctorSlots {
     });
   }
 
+  deleteSlots() {
+    if (!confirm('Вы точно хотите удалить все просроченные слоты?')) return;
+
+    this.doctorSlotService.deleteDoctorSlots().subscribe({
+      next: () => {
+        alert('Вы успешно удалили просроченные слоты');
+        this.load();
+      },
+      error: () => {
+        alert('Ошибка при удалении просроченных слотов');
+      }
+    });
+  }
+
   complete(bookingId: number) {
     if (!confirm('Вы точно хотите завершить запись?')) return;
 

@@ -38,4 +38,8 @@ export class DoctorSlotService {
   addDoctorSlots(date: string): Observable<unknown> {
     return this.http.post(`${this.apiUrl}?date=${date}`, null);
   }
+
+  deleteDoctorSlots(): Observable<unknown> {
+    return this.http.delete(this.apiUrl);
+  }
 }

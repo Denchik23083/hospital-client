@@ -21,6 +21,10 @@
       <button class="create" (click)="createSlots()">
         Создать слоты
       </button>
+
+      <button class="delete" (click)="deleteSlots()">
+        Удалить просроченные слоты
+      </button>
     </div>
 
     @if (isLoading()) {

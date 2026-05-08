@@ -201,17 +201,24 @@ h1 {
 }
 
 .create {
+  background: #22c55e;
+}
+
+.delete {
+  background: #ef4444;
+}
+
+.create, .delete {
   height: 40px;
   padding: 0 16px;
   border-radius: 10px;
   border: none;
   cursor: pointer;
-  background: #22c55e;
   color: white;
   font-weight: 600;
 }
 
-.create:hover {
+.create:hover, .delete:hover {
   opacity: 0.9;
 }
 
