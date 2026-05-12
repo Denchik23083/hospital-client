@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DoctorWithUserResponse } from '../models/responses/doctor/doctor-with-user-responce.model';
 import { HttpClient } from '@angular/common/http';
 import { DoctorRequest } from '../models/requests/doctor-request.model';
 import { DoctorFullRequest } from '../models/requests/doctor-full-request.model';
+import { DoctorWithUserResponse } from '../models/responses/doctor/doctor-with-user-response.model';
 
 @Injectable({
   providedIn: 'root',

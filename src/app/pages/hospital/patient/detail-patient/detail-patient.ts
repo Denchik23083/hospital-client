@@ -4,7 +4,7 @@ import { PatientService } from '../../../../services/patient.service';
 import { Router, RouterModule } from '@angular/router';
 import { TokenStorageService } from '../../../../services/token-storage.service';
 import { CommonModule } from '@angular/common';
-import { PatientWithUserResponse } from '../../../../models/responses/patient/patient-with-user-responce.model';
+import { PatientWithUserResponse } from '../../../../models/responses/patient/patient-with-user-response.model';
 
 @Component({
   selector: 'app-detail-patient',

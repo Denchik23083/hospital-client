@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PatientRequest } from '../models/requests/patient-request.model';
-import { PatientWithUserResponse } from '../models/responses/patient/patient-with-user-responce.model';
 import { PatientReplenishBalanceRequest } from '../models/requests/patient-replenish-balance-request.model';
+import { PatientWithUserResponse } from '../models/responses/patient/patient-with-user-response.model';
 
 @Injectable({
   providedIn: 'root',

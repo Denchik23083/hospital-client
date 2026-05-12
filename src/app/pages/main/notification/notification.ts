@@ -2,8 +2,8 @@ import { Component, inject, signal } from '@angular/core';
 import { NotificationService } from '../../../services/notification.service';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../../../services/token-storage.service';
-import { NotificationResponce } from '../../../models/responses/others/notification-responce.model';
 import { CommonModule } from '@angular/common';
+import { NotificationResponse } from '../../../models/responses/others/notification-response.model';
 
 @Component({
   selector: 'app-notification',
@@ -16,7 +16,7 @@ export class Notification {
   private readonly router = inject(Router);
   private readonly tokenStorage = inject(TokenStorageService);
 
-  notifications = signal<NotificationResponce[]>([]);
+  notifications = signal<NotificationResponse[]>([]);
 
   isLoading = signal(true);
   errorMessage = signal('');

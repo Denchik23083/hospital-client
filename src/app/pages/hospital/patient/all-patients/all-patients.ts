@@ -2,9 +2,9 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TokenStorageService } from '../../../../services/token-storage.service';
 import { PatientService } from '../../../../services/patient.service';
-import { PatientWithUserResponse } from '../../../../models/responses/patient/patient-with-user-responce.model';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PatientWithUserResponse } from '../../../../models/responses/patient/patient-with-user-response.model';
 
 @Component({
   selector: 'app-all-patients',

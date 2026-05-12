@@ -3,8 +3,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { DoctorService } from '../../../../services/doctor.service';
 import { TokenStorageService } from '../../../../services/token-storage.service';
-import { DoctorWithUserResponse } from '../../../../models/responses/doctor/doctor-with-user-responce.model';
 import { CommonModule } from '@angular/common';
+import { DoctorWithUserResponse } from '../../../../models/responses/doctor/doctor-with-user-response.model';
 
 @Component({
   selector: 'app-detail-doctor',

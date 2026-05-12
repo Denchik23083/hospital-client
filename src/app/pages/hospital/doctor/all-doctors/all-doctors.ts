@@ -5,9 +5,9 @@ import { Router, RouterModule } from '@angular/router';
 
 import { DoctorService } from '../../../../services/doctor.service';
 import { TokenStorageService } from '../../../../services/token-storage.service';
-import { DoctorWithUserResponse } from '../../../../models/responses/doctor/doctor-with-user-responce.model';
-import { SpecialtyService } from '../../../../services/specialty.service';
 import { SpecialtyResponse } from '../../../../models/responses/others/specialty-response.model';
+import { DoctorWithUserResponse } from '../../../../models/responses/doctor/doctor-with-user-response.model';
+import { SpecialtyService } from '../../../../services/specialty.service';
 
 @Component({
   selector: 'app-all-doctors',
