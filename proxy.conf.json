@@ -1,11 +1,11 @@
 {
   "/api/auth": {
-    "target": "http://localhost:5000",
+    "target": "https://localhost:5001",
     "secure": false,
     "changeOrigin": true
   },
   "/api/hospital": {
-    "target": "http://localhost:6000",
+    "target": "https://localhost:6001",
     "secure": false,
     "changeOrigin": true
   }
