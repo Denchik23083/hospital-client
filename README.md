@@ -1,59 +1,56 @@
-# HospitalClient
+Hospital Management System — Frontend (Angular)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.5.
+A responsive Single Page Application (SPA) providing an intuitive interface for patients, doctors, and hospital administrators. Integrated with a .NET 9 RESTful backend using JWT authentication.
 
-## Development server
+🛠 Tech Stack
 
-To start a local development server, run:
+Framework: Angular (TypeScript)
 
-```bash
-ng serve
-```
+State & Reactive Programming: RxJS Observables, BehaviorSubjects
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Styling & UI: Responsive Modular CSS / HTML5, Interactive Dashboards
 
-## Code scaffolding
+Security: HttpInterceptor for automatic JWT Bearer token injection and error handling
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+DevOps: Multi-stage Dockerfile (Nginx production serve), GitHub Actions CI/CD to Docker Hub
 
-```bash
-ng generate component component-name
-```
+✨ Key Features
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+🗓 Doctor Scheduling Grid: Interactive calendar grid displaying availability, appointments, and patient status.
 
-```bash
-ng generate --help
-```
+🏥 Patient Booking Portal: Seamless multi-step booking workflow with real-time balance checks and instant confirmation.
 
-## Building
+👨‍💼 Admin Control Dashboard: User role management, schedule creation, and system transaction oversight.
 
-To build the project run:
+🔒 Role-Based Route Guards: Route protection based on claims contained in decoded JWT tokens.
 
-```bash
-ng build
-```
+🚀 Getting Started
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Quick Start with Docker
 
-## Running unit tests
+# Pull and run the containerized Angular app
+docker run -d -p 8080:80 denchik23083/hospital-frontend:latest
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Open http://localhost:8080 in your browser.
 
-```bash
-ng test
-```
+Local Development
 
-## Running end-to-end tests
+Clone the repository:
 
-For end-to-end (e2e) testing, run:
+git clone https://github.com/Denchik23083/hospital-client.git cd hospital-client
 
-```bash
-ng e2e
-```
+Install Dependencies:
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+npm install
 
-## Additional Resources
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Run Development Server:
+
+ng serve --open
+
+
+Navigate to http://localhost:4200/.
+
+👤 Author
+
+Denys Kudriavov
